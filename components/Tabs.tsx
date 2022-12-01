@@ -1,15 +1,29 @@
-import { FlatList, Image, Text, View } from 'react-native'
+import * as React from 'react'
+import { FlatList, Image, Pressable, Text, View } from 'react-native'
 import { categories } from '../data/categories'
 
-export const Tabs = () => {
+type TabsProps = {
+	selectedIndex: number
+	setSelectedIndex: React.Dispatch<React.SetStateAction<number>>
+}
+
+export const Tabs = ({ selectedIndex, setSelectedIndex }: TabsProps) => {
 	const renderItem = ({ item }) => (
-		<View className='px-5 py-3 rounded-lg mr-4 bg-gray-300 flex flex-row items-center'>
-			<Image
-				source={require('../assets/products/couch1.png')}
-				className='w-6 h-6 mr-3'
-			/>
-			<Text className='font-titilium-semibold text-base lowercase'>Sofas</Text>
-		</View>
+		<Pressable
+			onPress={() => setSelectedIndex(item.id)}
+			className={`px-5 py-3 rounded-lg mr-4 flex flex-row items-center ${
+				selectedIndex === item.id ? 'bg-gray-900' : 'bg-gray-300'
+			}`}>
+			{selectedIndex === item.id ? (
+				<Image source={item.image} className='w-6 h-6 mr-3' />
+			) : null}
+			<Text
+				className={`font-titilium-semibold text-base capitalize ${
+					selectedIndex === item.id ? 'text-gray-100' : 'text-gray-900'
+				}`}>
+				{item.name}
+			</Text>
+		</Pressable>
 	)
 
 	return (

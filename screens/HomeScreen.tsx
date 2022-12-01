@@ -1,11 +1,31 @@
 import { Ionicons } from '@expo/vector-icons'
 import { StatusBar } from 'expo-status-bar'
+import * as React from 'react'
 import { Text, TextInput, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { Furniture } from '../components/Furniture'
+import { Product } from '../components/Product'
 import { Tabs } from '../components/Tabs'
+import { products } from '../data/products'
+import { ProductType } from '../models/products'
 
 export const HomeScreen = () => {
+	// const [selectedIndex, setSelectedIndex] = React.useState<string>(
+	// 	categories[0].name
+	// )
+	const [selectedIndex, setSelectedIndex] = React.useState(1)
+	const [categoryProducts, setCategoryProducts] = React.useState<ProductType[]>(
+		[]
+	)
+
+	React.useEffect(() => {
+		const product = products.filter(product =>
+			product.categories.includes(selectedIndex)
+		)
+		setCategoryProducts(product)
+	}, [selectedIndex])
+
+	console.log(categoryProducts)
+
 	return (
 		<SafeAreaView>
 			<StatusBar backgroundColor='#fff' />
@@ -15,7 +35,7 @@ export const HomeScreen = () => {
 				{/* <Text className='text-3xl font-titilium-bold text-gray-900 mx-4 lowercase'>
 						Find the best modern design furniture in the field
 					</Text> */}
-				<Text className='text-2xl font-titilium-bold text-gray-900 mx-4'>
+				<Text className='text-2xl font-titilium-black text-gray-900 mx-4'>
 					Find modern furniture design
 				</Text>
 
@@ -28,30 +48,12 @@ export const HomeScreen = () => {
 				</View>
 
 				{/* tabs */}
-				<Tabs />
+				<Tabs
+					selectedIndex={selectedIndex}
+					setSelectedIndex={setSelectedIndex}
+				/>
 
-				{/* products */}
-
-				{/* <Text className='font-titilium-bold text-2xl text-gray-800 px-4'>
-						New arrivals ✨
-					</Text>
-
-					<View className='mt-4 ml-4'>
-						<Product />
-					</View> */}
-				{/* <View className='mt-8'>
-				</View>
-
-					<View className='mt-10'>
-						<Text className='font-titilium-bold text-2xl text-gray-800 px-4'>
-							Products for you 😍
-						</Text>
-
-						<View className='mt-4 ml-4'>
-							<Product />
-						</View>
-					</View> */}
-				<Furniture />
+				<Product categoryProducts={categoryProducts} />
 			</View>
 			{/* </ScrollView> */}
 		</SafeAreaView>

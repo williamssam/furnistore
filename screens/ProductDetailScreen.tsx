@@ -1,23 +1,41 @@
 import { AntDesign, Ionicons } from '@expo/vector-icons'
-import { useNavigation } from '@react-navigation/native'
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
+import * as React from 'react'
 import {
 	Dimensions,
 	Image,
 	Pressable,
 	ScrollView,
 	Text,
+	ToastAndroid,
 	View,
 } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { RootStackParamList } from '../models/navigators'
+import { useProductStore } from '../store/cartStore'
 
 const { width } = Dimensions.get('window')
 
 export const ProductDetailScreen = () => {
 	const navigation = useNavigation()
+	// const [count, setCount] = useAtom(countAtom)
+	const addToCart = useProductStore(state => state.addToCart)
+	// const count = useProductStore(state => state.count)
+
+	const {
+		params: { product },
+	} = useRoute<RouteProp<RootStackParamList, 'ProductDetail'>>()
+
+	// const increaseCount = () => setCount(count + 1)
+	// const decreaseCount = () => {
+	// 	if (count <= 1) return
+	// 	setCount(count - 1)
+	// }
+
 	return (
 		<SafeAreaView>
-			<ScrollView showsVerticalScrollIndicator={false}>
-				<View className='flex flex-row items-center justify-between mx-2 my-4'>
+			<ScrollView showsVerticalScrollIndicator={false} className='bg-white'>
+				<View className='flex flex-row items-center justify-between mx-2 mt-4 mb-1'>
 					<Pressable className='p-2' onPress={() => navigation.goBack()}>
 						<AntDesign name='arrowleft' size={24} color='black' />
 					</Pressable>
@@ -30,23 +48,24 @@ export const ProductDetailScreen = () => {
 				</View>
 
 				<View className='flex flex-col items-center justify-center bg-slate-200 py-6 px-4 rounded-xl mx-4 '>
-					<Image
-						source={require('../assets/products/chair1.png')}
-						className='w-96 h-96'
-					/>
+					<Image source={product?.image} className='w-96 h-96 object-contain' />
 				</View>
 
-				<View className='mx-4 mt-6 pb-24'>
+				<View className='mx-4 my-6'>
 					<View className='flex flex-row items-center justify-between'>
 						<View>
 							<Text className='text-3xl font-titilium-black'>
-								Timber Gray Sofa
+								{product?.name}
 							</Text>
-							<Text className='text-gray-700 font-titilium-bold lowercase'>
+							<Text className='text-gray-700 font-titilium-bold lowercase leading-4'>
 								<Text className='font-titilium-regular text-gray-600'>
 									brand:
 								</Text>{' '}
-								Justin Monroe
+								{product?.brand}
+							</Text>
+
+							<Text className='text-sm font-titilium-regular text-gray-500'>
+								#sofas, #chairs
 							</Text>
 						</View>
 
@@ -56,24 +75,56 @@ export const ProductDetailScreen = () => {
 							<Text className='font-titilium-bold text-sm pl-2'>3.5</Text>
 						</View>
 					</View>
+
+					<View className='flex flex-row items-center justify-between pt-4'>
+						<View>
+							<Text className='font-titilium-regular text-xs text-gray-500'>
+								price
+							</Text>
+							<Text className='font-titilium-bold text-lg text-gray-600 leading-5'>
+								${product?.price}
+							</Text>
+						</View>
+
+						<View className='flex flex-row items-center bg-gray-200'>
+							<Pressable className='bg-gray-500 py-1 px-2 rounded mr-2'>
+								<AntDesign name='plus' size={16} color='white' />
+							</Pressable>
+							<Text className='font-titilium-bold text-lg'>1</Text>
+							<Pressable className='bg-gray-500 py-1 px-2 rounded ml-2'>
+								<AntDesign name='minus' size={16} color='white' />
+							</Pressable>
+						</View>
+					</View>
+
 					<Text className='text-base font-titilium-regular pt-4'>
-						Lorem ipsum, dolor sit amet consectetur adipisicing elit. Veniam
-						quibusdam aliquam placeat fugit facere voluptates officia veritatis
-						totam, mollitia cum voluptate eum debitis molestiae molestias
-						consectetur nemo cumque similique ipsam architecto eligendi?
-						Quisquam quod laborum, nesciunt iste quasi ex fuga. Natus beatae
-						nesciunt debitis officia adipisci. Minus, tenetur. Porro,
-						consequuntur!
+						{product?.description}
 					</Text>
 				</View>
-			</ScrollView>
-			<View className='absolute bottom-0 bg-gray-100 w-full py-4 px-6'>
-				<Pressable className='flex flex-row p-4 items-center justify-center rounded-xl bg-gray-900'>
+
+				{/* <Pressable className='flex flex-row  px-6 py-4 justify-center rounded-xl bg-black'>
 					<Text className='text-lg font-titilium-bold text-gray-100'>
 						Add to cart
 					</Text>
+				</Pressable> */}
+
+				<Pressable
+					onPress={() => {
+						addToCart(product)
+						ToastAndroid.show(
+							`${product?.name} added to cart`,
+							ToastAndroid.SHORT
+						)
+					}}
+					className='mt-5 px-8 py-4 mx-4 mb-5 bg-black rounded-xl flex flex-row justify-between items-center'>
+					<Text className='text-white font-titilium-bold text-lg'>
+						Add to cart
+					</Text>
+					<View className='bg-gray-200 rounded-lg py-1 px-3'>
+						<Ionicons name='ios-cart' size={24} color='black' />
+					</View>
 				</Pressable>
-			</View>
+			</ScrollView>
 		</SafeAreaView>
 	)
 }

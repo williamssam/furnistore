@@ -4,6 +4,7 @@ import { BottomTabStackParamList } from '../models/navigators'
 import { CartScreen } from '../screens/CartScreen'
 import { FavouritesScreen } from '../screens/FavouritesScreen'
 import { HomeScreen } from '../screens/HomeScreen'
+import { SettingsScreen } from '../screens/SettingsScreen'
 
 const Tab = createBottomTabNavigator<BottomTabStackParamList>()
 export const BottomTabNavigator = () => {
@@ -22,6 +23,8 @@ export const BottomTabNavigator = () => {
 						iconName = focused ? 'ios-cart' : 'ios-cart-outline'
 					} else if (route.name === 'Favourites') {
 						iconName = focused ? 'ios-heart' : 'ios-heart-outline'
+					} else if (route.name === 'Settings') {
+						iconName = focused ? 'ios-settings' : 'ios-settings-outline'
 					}
 
 					return <Ionicons name={iconName} size={size} color={color} />
@@ -33,6 +36,7 @@ export const BottomTabNavigator = () => {
 			<Tab.Screen name='Home' component={HomeScreen} />
 			<Tab.Screen name='Cart' component={CartScreen} />
 			<Tab.Screen name='Favourites' component={FavouritesScreen} />
+			<Tab.Screen name='Settings' component={SettingsScreen} />
 		</Tab.Navigator>
 	)
 }
