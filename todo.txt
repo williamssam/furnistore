@@ -1,1 +1,0 @@
-- Check if js is hydrated before showing hte applicaition. to solve zustand async persistor problem
