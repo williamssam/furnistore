@@ -3,34 +3,36 @@ import { useNavigation } from '@react-navigation/native'
 import { FlatList, Image, Pressable, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { NavigationProps } from '../models/navigators'
+import { useFavouriteStore } from '../store/favouriteStore'
 
 export const FavouritesScreen = () => {
 	const navigation = useNavigation<NavigationProps>()
-	const products = []
+	const favourites = useFavouriteStore(state => state.favourites)
 
 	const renderItem = ({ index, item }) => {
 		return (
 			<Pressable
-				onPress={() => navigation.navigate('ProductDetail')}
+				onPress={() =>
+					navigation.navigate('ProductDetail', {
+						product: item,
+					})
+				}
 				className='bg-gray-300 rounded-xl p-3 w-[183px] mt-1'>
 				<View className='bg-gray-200 rounded-lg px-1 py-3 flex flex-col items-center shadow-2xl'>
-					<Image
-						source={require('../assets/products/chair1.png')}
-						className='w-36 h-36'
-					/>
+					<Image source={item?.image} className='w-36 h-36' />
 					<Pressable className='absolute top-2 right-2 p-1 bg-red-200 rounded-xl'>
 						<Ionicons name='heart' size={24} color='red' />
 					</Pressable>
 				</View>
 
-				<View className='pt-4'>
+				<View className='pt-4 flex flex-col'>
 					<Text className='font-titilium-bold text-lg text-gray-900'>
-						Timber Gray Sofa
+						{item?.name}
 					</Text>
 
 					<View className='flex flex-row justify-between items-center pt-3'>
 						<Text className='font-titilium-bold text-gray-900 text-lg'>
-							$550
+							${item?.price}
 						</Text>
 
 						<Pressable className='w-9 h-9 flex flex-col items-center justify-center rounded-xl bg-gray-100'>
@@ -45,7 +47,7 @@ export const FavouritesScreen = () => {
 	return (
 		<SafeAreaView>
 			<FlatList
-				data={products}
+				data={favourites}
 				columnWrapperStyle={{
 					justifyContent: 'space-between',
 					paddingHorizontal: 8,

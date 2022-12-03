@@ -11,7 +11,7 @@ import {
 import Swiper from 'react-native-deck-swiper'
 import { NavigationProps } from '../models/navigators'
 import { ProductType } from '../models/products'
-import { useProductStore } from '../store/cartStore'
+import { useProductStore } from '../store/productStore'
 
 const { height } = Dimensions.get('screen')
 
@@ -22,38 +22,6 @@ type ProductProps = {
 export const Product = ({ categoryProducts }: ProductProps) => {
 	const navigation = useNavigation<NavigationProps>()
 	const addToCart = useProductStore(state => state.addToCart)
-	// const products = [
-	// 	{
-	// 		id: 1,
-	// 		name: 'Timber Gray Sofa',
-	// 		maker: 'Jason Bourne',
-	// 		price: 550,
-	// 	},
-	// 	{
-	// 		id: 2,
-	// 		name: 'Timber Gray Sofa',
-	// 		maker: 'Jason Bourne',
-	// 		price: 600,
-	// 	},
-	// 	{
-	// 		id: 3,
-	// 		name: 'Timber Gray Sofa',
-	// 		maker: 'Jason Bourne',
-	// 		price: 200,
-	// 	},
-	// 	{
-	// 		id: 4,
-	// 		name: 'Timber Gray Sofa',
-	// 		maker: 'Jason Bourne',
-	// 		price: 1199,
-	// 	},
-	// 	{
-	// 		id: 5,
-	// 		name: 'Timber Gray Sofa',
-	// 		maker: 'Jason Bourne',
-	// 		price: 999,
-	// 	},
-	// ]
 
 	return (
 		<View className='pt-6 mt-6' style={{ flex: 1, height: height - 350 }}>

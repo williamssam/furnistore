@@ -24,8 +24,6 @@ export const HomeScreen = () => {
 		setCategoryProducts(product)
 	}, [selectedIndex])
 
-	console.log(categoryProducts)
-
 	return (
 		<SafeAreaView>
 			<StatusBar backgroundColor='#fff' />

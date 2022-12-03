@@ -5,26 +5,39 @@ import { ProductType } from '../models/products'
 
 interface ProductState {
 	cart: ProductType[]
-	// count: number
 	addToCart: (product: ProductType) => void
 	removeFromCart: (id: number) => void
-	// increaseCount:() => void
-	// categories: CategoryType[]
+	_hasHydrated: boolean
+	setHasHydrated: (_hasHydrated: boolean) => void
 }
 
 export const useProductStore = create<ProductState>()(
 	persist(
 		set => ({
 			cart: [],
-			// count: 5,
-			addToCart: product => set(state => ({ cart: [...state.cart, product] })),
+			count: 1,
+			_hasHydrated: false,
+			addToCart: product =>
+				set(state => ({
+					// if state counts the product, do not add the product again instead increase the count
+					cart: state.cart.some(prod => prod.id === product.id)
+						? state.cart
+						: [...state.cart, { ...product }],
+				})),
 			removeFromCart: id =>
 				set(state => ({ cart: state.cart.filter(pro => pro.id !== id) })),
-			// increaseCount: () => set(state => ({ count: }))
+			setHasHydrated: state => {
+				set({
+					_hasHydrated: state,
+				})
+			},
 		}),
 		{
-			name: 'cart-storage',
+			name: 'product-storage',
 			getStorage: () => AsyncStorage,
+			onRehydrateStorage: () => state => {
+				state.setHasHydrated(true)
+			},
 		}
 	)
 )

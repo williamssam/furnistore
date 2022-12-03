@@ -4,10 +4,16 @@ import * as SplashScreen from 'expo-splash-screen'
 import { useCallback } from 'react'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { AppNavigator } from './navigators/AppNavigator'
+import { useProductStore } from './store/productStore'
 
 SplashScreen.preventAutoHideAsync()
 
 export default function App() {
+	const hasHydrated = useProductStore(state => state._hasHydrated)
+
+	// if () {
+	// 	return <p>Loading...</p>
+	// }
 	const [fontsLoaded] = useFonts({
 		'titilium-regular': require('./assets/fonts/TitilliumWeb-Regular.ttf'),
 		'titilium-semibold': require('./assets/fonts/TitilliumWeb-SemiBold.ttf'),
@@ -26,7 +32,7 @@ export default function App() {
 	}
 
 	return (
-		<SafeAreaProvider onLayout={onLayoutRootView}>
+		<SafeAreaProvider onLayout={onLayoutRootView} style={{ flex: 1 }}>
 			<NavigationContainer>
 				<AppNavigator />
 			</NavigationContainer>

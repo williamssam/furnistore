@@ -19,6 +19,7 @@
     "expo-font": "~11.0.1",
     "expo-splash-screen": "~0.17.5",
     "expo-status-bar": "~1.4.2",
+    "immer": "^9.0.16",
     "jotai": "^1.10.0",
     "nativewind": "^2.0.11",
     "react": "18.1.0",

@@ -12,25 +12,26 @@ import {
 } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { RootStackParamList } from '../models/navigators'
-import { useProductStore } from '../store/cartStore'
+import { useFavouriteStore } from '../store/favouriteStore'
+import { useProductStore } from '../store/productStore'
 
 const { width } = Dimensions.get('window')
 
 export const ProductDetailScreen = () => {
 	const navigation = useNavigation()
-	// const [count, setCount] = useAtom(countAtom)
 	const addToCart = useProductStore(state => state.addToCart)
-	// const count = useProductStore(state => state.count)
+	const { favouriteItem, favourites, removeFavouriteItem } = useFavouriteStore(
+		state => state
+	)
 
 	const {
 		params: { product },
 	} = useRoute<RouteProp<RootStackParamList, 'ProductDetail'>>()
 
-	// const increaseCount = () => setCount(count + 1)
-	// const decreaseCount = () => {
-	// 	if (count <= 1) return
-	// 	setCount(count - 1)
-	// }
+	// check if favourites contain this product
+	const isProductLiked = favourites?.some(
+		favourite => favourite.id === product.id
+	)
 
 	return (
 		<SafeAreaView>
@@ -42,9 +43,17 @@ export const ProductDetailScreen = () => {
 
 					<Text className='font-titilium-semibold text-xl'>Details</Text>
 
-					<Pressable className='p-2'>
-						<Ionicons name='ios-heart-outline' size={24} color='black' />
-					</Pressable>
+					{isProductLiked ? (
+						<Pressable
+							className='p-2'
+							onPress={() => removeFavouriteItem(product?.id)}>
+							<Ionicons name='ios-heart' size={24} color='red' />
+						</Pressable>
+					) : (
+						<Pressable className='p-2' onPress={() => favouriteItem(product)}>
+							<Ionicons name='ios-heart-outline' size={24} color='black' />
+						</Pressable>
+					)}
 				</View>
 
 				<View className='flex flex-col items-center justify-center bg-slate-200 py-6 px-4 rounded-xl mx-4 '>
