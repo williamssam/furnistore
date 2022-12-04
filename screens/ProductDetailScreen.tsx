@@ -11,6 +11,7 @@ import {
 	View,
 } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { NumericFormat } from 'react-number-format'
 import { categories } from '../data/categories'
 import { RootStackParamList } from '../models/navigators'
 import { useFavouriteStore } from '../store/favouriteStore'
@@ -38,14 +39,13 @@ export const ProductDetailScreen = () => {
 	// check the cateogry id in each product then compare them with teh cateories id and get the name
 	React.useEffect(() => {
 		const category = categories.map(category => {
-			if (product.categories.includes(category.id)) {
+			if (product?.categories.includes(category.id)) {
 				return category.name
 			}
 		})
 		const valuesThatAreNotUndefined = category.filter(Boolean)
 		setTags(valuesThatAreNotUndefined)
 	}, [])
-	console.log('tags', tags)
 
 	return (
 		<SafeAreaView>
@@ -97,9 +97,17 @@ export const ProductDetailScreen = () => {
 							<Text className='font-titilium-regular text-xs text-gray-500'>
 								price
 							</Text>
-							<Text className='font-titilium-bold text-lg text-gray-600 leading-5'>
-								${product?.price}
-							</Text>
+							<NumericFormat
+								value={product?.price}
+								thousandSeparator=','
+								displayType='text'
+								prefix='$'
+								renderText={value => (
+									<Text className='font-titilium-bold text-lg text-gray-600 leading-5'>
+										{value}
+									</Text>
+								)}
+							/>
 						</View>
 
 						<View className='flex flex-row items-center bg-gray-200'>

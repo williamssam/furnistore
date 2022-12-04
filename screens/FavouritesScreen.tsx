@@ -1,4 +1,4 @@
-import { AntDesign, Ionicons } from '@expo/vector-icons'
+import { Ionicons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 import {
 	FlatList,
@@ -9,7 +9,11 @@ import {
 	View,
 } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { NumericFormat } from 'react-number-format'
+import { EmptyComponent } from '../components/EmptyComponent'
+import { Header } from '../components/Header'
 import { NavigationProps } from '../models/navigators'
+import { ProductType } from '../models/products'
 import { useFavouriteStore } from '../store/favouriteStore'
 import { useProductStore } from '../store/productStore'
 
@@ -18,7 +22,7 @@ export const FavouritesScreen = () => {
 	const { favourites, removeFavouriteItem } = useFavouriteStore(state => state)
 	const addToCart = useProductStore(state => state.addToCart)
 
-	const renderItem = ({ index, item }) => {
+	const renderItem = ({ item }: { item: ProductType }) => {
 		return (
 			<Pressable
 				onPress={() =>
@@ -41,10 +45,17 @@ export const FavouritesScreen = () => {
 				</Text>
 
 				<View className='flex flex-row justify-between items-center pt-3 mt-auto'>
-					<Text className='font-titilium-bold text-gray-900 text-lg'>
-						${item?.price}
-					</Text>
-
+					<NumericFormat
+						value={item?.price}
+						thousandSeparator=','
+						displayType='text'
+						prefix='$'
+						renderText={value => (
+							<Text className='font-titilium-bold text-gray-900 text-lg'>
+								{value}
+							</Text>
+						)}
+					/>
 					<Pressable
 						onPress={() => {
 							addToCart(item)
@@ -72,30 +83,15 @@ export const FavouritesScreen = () => {
 				}}
 				bounces={false}
 				renderItem={renderItem}
-				keyExtractor={item => item.id}
+				keyExtractor={item => String(item?.id)}
 				numColumns={2}
 				showsHorizontalScrollIndicator={false}
-				ListHeaderComponent={() => (
-					<View className='mx-4 mb-4'>
-						<Pressable
-							className='mt-4 mb-1'
-							onPress={() => navigation.goBack()}>
-							<AntDesign name='arrowleft' size={24} color='black' />
-						</Pressable>
-						<Text className='font-titilium-black text-3xl pt-2 dark:bg-red-600'>
-							Favourites
-						</Text>
-					</View>
-				)}
+				ListHeaderComponent={() => <Header title='Your favourites item' />}
 				ListEmptyComponent={() => (
-					<View className='mx-4 mt-3 bg-white py-7 px-5 rounded-xl'>
-						<Text className='font-titilium-bold text-2xl text-gray-600 text-center'>
-							No favourite item.
-						</Text>
-						<Text className='font-titilium-semibold text-sm text-gray-600 text-center leading-5'>
-							Please add a few items.
-						</Text>
-					</View>
+					<EmptyComponent
+						title='Your favourites is empty'
+						subtitle='Please add a few item'
+					/>
 				)}
 			/>
 		</SafeAreaView>

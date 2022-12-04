@@ -4,7 +4,7 @@ import { persist } from 'zustand/middleware'
 import { immer } from 'zustand/middleware/immer'
 import { ProductType } from '../models/products'
 
-interface FavouriteState {
+type FavouriteState = {
 	favourites: ProductType[]
 	favouriteItem: (item: ProductType) => void
 	removeFavouriteItem: (id: number) => void

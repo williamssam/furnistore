@@ -9,6 +9,7 @@ import {
 	View,
 } from 'react-native'
 import Swiper from 'react-native-deck-swiper'
+import { NumericFormat } from 'react-number-format'
 import { NavigationProps } from '../models/navigators'
 import { ProductType } from '../models/products'
 import { useProductStore } from '../store/productStore'
@@ -44,17 +45,20 @@ export const Product = ({ categoryProducts }: ProductProps) => {
 
 						<View className='self-start flex items-center justify-between flex-row w-full pt-1'>
 							<View>
-								<View>
-									<Text className='text-2xl font-titilium-bold'>
-										{product?.name}
-									</Text>
-									<Text className='font-titilium-regular leading-4'>
-										{product?.brand}
-									</Text>
-								</View>
-								<Text className='font-titilium-semibold text-gray-700 text-lg'>
-									${product?.price}
+								<Text className='text-2xl font-titilium-bold'>
+									{product?.name}
 								</Text>
+								<NumericFormat
+									value={product?.price}
+									thousandSeparator=','
+									displayType='text'
+									prefix='$'
+									renderText={value => (
+										<Text className='font-titilium-bold text-lg text-gray-600 leading-5'>
+											{value}
+										</Text>
+									)}
+								/>
 							</View>
 
 							<Pressable

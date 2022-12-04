@@ -19,7 +19,7 @@ export const HomeScreen = () => {
 
 	React.useEffect(() => {
 		const product = products.filter(product =>
-			product.categories.includes(selectedIndex)
+			product?.categories.includes(selectedIndex)
 		)
 		setCategoryProducts(product)
 	}, [selectedIndex])

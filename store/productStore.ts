@@ -3,7 +3,7 @@ import create from 'zustand'
 import { persist } from 'zustand/middleware'
 import { ProductType } from '../models/products'
 
-interface ProductState {
+type ProductState = {
 	cart: ProductType[]
 	addToCart: (product: ProductType) => void
 	removeFromCart: (id: number) => void
