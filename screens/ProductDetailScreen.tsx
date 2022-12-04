@@ -11,6 +11,7 @@ import {
 	View,
 } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { categories } from '../data/categories'
 import { RootStackParamList } from '../models/navigators'
 import { useFavouriteStore } from '../store/favouriteStore'
 import { useProductStore } from '../store/productStore'
@@ -19,6 +20,7 @@ const { width } = Dimensions.get('window')
 
 export const ProductDetailScreen = () => {
 	const navigation = useNavigation()
+	const [tags, setTags] = React.useState<string[]>([])
 	const addToCart = useProductStore(state => state.addToCart)
 	const { favouriteItem, favourites, removeFavouriteItem } = useFavouriteStore(
 		state => state
@@ -32,6 +34,18 @@ export const ProductDetailScreen = () => {
 	const isProductLiked = favourites?.some(
 		favourite => favourite.id === product.id
 	)
+
+	// check the cateogry id in each product then compare them with teh cateories id and get the name
+	React.useEffect(() => {
+		const category = categories.map(category => {
+			if (product.categories.includes(category.id)) {
+				return category.name
+			}
+		})
+		const valuesThatAreNotUndefined = category.filter(Boolean)
+		setTags(valuesThatAreNotUndefined)
+	}, [])
+	console.log('tags', tags)
 
 	return (
 		<SafeAreaView>
@@ -61,28 +75,21 @@ export const ProductDetailScreen = () => {
 				</View>
 
 				<View className='mx-4 my-6'>
-					<View className='flex flex-row items-center justify-between'>
-						<View>
-							<Text className='text-3xl font-titilium-black'>
-								{product?.name}
-							</Text>
-							<Text className='text-gray-700 font-titilium-bold lowercase leading-4'>
-								<Text className='font-titilium-regular text-gray-600'>
-									brand:
-								</Text>{' '}
-								{product?.brand}
-							</Text>
+					<View>
+						<Text className='text-sm font-titilium-regular text-gray-500 leading-4'>
+							{/* get tag, replace any space between tag with dash and join all tags with comma */}
+							{tags.map(tag => `#${tag.replace(/\s+/g, '-')}`).join(', ')}
+						</Text>
+						<Text className='text-3xl font-titilium-black'>
+							{product?.name}
+						</Text>
 
-							<Text className='text-sm font-titilium-regular text-gray-500'>
-								#sofas, #chairs
-							</Text>
-						</View>
-
-						{/* ratings */}
-						<View className='bg-gray-300 py-1 px-2 rounded-lg flex flex-row items-center'>
-							<Ionicons name='ios-star' size={16} color='black' />
-							<Text className='font-titilium-bold text-sm pl-2'>3.5</Text>
-						</View>
+						<Text className='text-gray-700 font-titilium-bold lowercase leading-4'>
+							<Text className='font-titilium-regular text-gray-600'>
+								brand:
+							</Text>{' '}
+							{product?.brand}
+						</Text>
 					</View>
 
 					<View className='flex flex-row items-center justify-between pt-4'>

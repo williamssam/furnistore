@@ -7,7 +7,7 @@ import { ProductType } from '../models/products'
 interface FavouriteState {
 	favourites: ProductType[]
 	favouriteItem: (item: ProductType) => void
-	removeFavouriteItem: (item: number) => void
+	removeFavouriteItem: (id: number) => void
 }
 
 export const useFavouriteStore = create<FavouriteState>()(

@@ -72,18 +72,20 @@ export const Product = ({ categoryProducts }: ProductProps) => {
 					</Pressable>
 				)}
 				verticalSwipe={false}
-				onSwiped={cardIndex => {
-					console.log(cardIndex)
-				}}
-				onSwipedAll={() => {
-					console.log('onSwipedAll')
-				}}
+				// onSwiped={cardIndex => {
+				// 	console.log(cardIndex)
+				// }}
+				// onSwipedAll={() => {
+				// 	console.log('onSwipedAll')
+				// }}
 				// onTapCard=
 				cardVerticalMargin={0}
 				cardHorizontalMargin={0}
 				cardIndex={0}
-				stackSize={1}
+				showSecondCard
+				stackSize={2}
 				goBackToPreviousCardOnSwipeLeft={true}
+				infinite
 				backgroundColor={'transparent'}
 			/>
 		</View>
