@@ -32,7 +32,7 @@ export const FavouritesScreen = () => {
 						product: item,
 					})
 				}
-				className='bg-secondary rounded-xl p-3 w-[183px] mt-1'>
+				className='bg-secondary rounded-xl p-3 w-[181px] mt-1 mb-5'>
 				<View className='bg-gray-600 rounded-lg px-1 py-1 flex flex-col items-center shadow-2xl'>
 					<Image source={item?.image} className='w-36 h-36' />
 					<Pressable
@@ -78,10 +78,12 @@ export const FavouritesScreen = () => {
 		<SafeAreaView className='flex-1 bg-black'>
 			<FlatList
 				data={favourites}
+				contentContainerStyle={{
+					paddingBottom: 70,
+				}}
 				columnWrapperStyle={{
 					justifyContent: 'space-between',
 					paddingHorizontal: 8,
-					paddingBottom: 15,
 				}}
 				bounces={false}
 				renderItem={renderItem}

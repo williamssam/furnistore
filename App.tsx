@@ -22,7 +22,7 @@ export default function App() {
 		if (fontsLoaded && hasHydrated) {
 			await SplashScreen.hideAsync()
 		}
-	}, [fontsLoaded])
+	}, [fontsLoaded, hasHydrated])
 
 	if (!fontsLoaded) {
 		return null

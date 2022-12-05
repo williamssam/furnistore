@@ -15,6 +15,6 @@ export const createFavouriteSlice: StateCreator<
 		}),
 	removeFavouriteItem: id =>
 		set(state => ({
-			favourites: state.favourites.filter(pro => pro.id !== id),
+			favourites: state.favourites.filter(product => product.id !== id),
 		})),
 }))

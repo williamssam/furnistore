@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { FlatList, Image, Pressable, Text, View } from 'react-native'
 import { categories } from '../data/categories'
+import { CategoryType } from '../models/products'
 
 type TabsProps = {
 	selectedIndex: number
@@ -8,12 +9,18 @@ type TabsProps = {
 }
 
 export const Tabs = ({ selectedIndex, setSelectedIndex }: TabsProps) => {
-	const renderItem = ({ item }) => (
+	const renderItem = ({
+		item,
+		index,
+	}: {
+		item: CategoryType
+		index: number
+	}) => (
 		<Pressable
 			onPress={() => setSelectedIndex(item.id)}
 			className={`px-5 py-3 rounded-xl mr-4 flex flex-row items-center ${
 				selectedIndex === item.id ? 'bg-blue-800' : 'bg-secondary'
-			}`}>
+			} ${index === 0 ? 'ml-4' : 'ml-0'}`}>
 			{selectedIndex === item.id ? (
 				<Image source={item.image} className='w-6 h-6 mr-3' />
 			) : null}
@@ -24,10 +31,10 @@ export const Tabs = ({ selectedIndex, setSelectedIndex }: TabsProps) => {
 	)
 
 	return (
-		<View className='ml-4 pt-6 flex flex-row items-center'>
+		<View className='pt-5 flex flex-row items-center'>
 			<FlatList
 				data={categories}
-				keyExtractor={item => item.id}
+				keyExtractor={item => String(item.id)}
 				horizontal
 				showsHorizontalScrollIndicator={false}
 				renderItem={renderItem}

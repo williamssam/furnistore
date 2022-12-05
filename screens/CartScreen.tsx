@@ -25,7 +25,7 @@ export const CartScreen = () => {
 	const total = subtotal + shippingCost
 
 	const renderItem = ({ item }: { item: ProductType }) => (
-		<View className='flex items-center flex-row bg-secondary py-4 px-4 rounded-xl mb-4 mx-4'>
+		<View className='flex items-center flex-row bg-secondary py-4 px-4 rounded-xl mb-5 mx-4'>
 			<View className='bg-gray-600 rounded-lg py-2 px-2'>
 				<Image source={item?.image} className='w-20 h-20' />
 			</View>
@@ -63,8 +63,8 @@ export const CartScreen = () => {
 						ToastAndroid.SHORT
 					)
 				}}
-				className='w-7 h-7 rounded-xl absolute right-0 top-0 bg-red-300 flex items-center justify-center'>
-				<Ionicons name='trash' size={18} color='#991B1B' />
+				className='w-7 h-7 rounded-xl absolute left-0 top-0 bg-red-100 flex items-center justify-center'>
+				<Ionicons name='trash' size={18} color='red' />
 			</Pressable>
 		</View>
 	)

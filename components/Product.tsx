@@ -25,7 +25,7 @@ export const Product = ({ categoryProducts }: ProductProps) => {
 	const addToCart = useProductStore(state => state.addToCart)
 
 	return (
-		<View className='pt-4 mt-6' style={{ flex: 1, height: height - 350 }}>
+		<View className='mt-5' style={{ flex: 1, height: height - 350 }}>
 			<Swiper
 				cardStyle={{
 					flex: 1,

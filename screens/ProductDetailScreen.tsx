@@ -1,4 +1,5 @@
 import { AntDesign, Ionicons } from '@expo/vector-icons'
+import { Motion } from '@legendapp/motion'
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
 import * as React from 'react'
 import {
@@ -21,7 +22,7 @@ const { width } = Dimensions.get('window')
 
 export const ProductDetailScreen = () => {
 	const navigation = useNavigation()
-	const [tags, setTags] = React.useState<string[]>([])
+	const [tags, setTags] = React.useState<(string | undefined)[]>([])
 	const [moreDesc, setMoreDesc] = React.useState(false)
 	const addToCart = useProductStore(state => state.addToCart)
 	const { favouriteItem, favourites, removeFavouriteItem } = useProductStore(
@@ -36,11 +37,11 @@ export const ProductDetailScreen = () => {
 		favourite => favourite.id === product.id
 	)
 
-	// check the cateogry id in each product then compare them with teh cateories id and get the name
+	// check the cateogry id in each product then compare them with the cateories id and get the name
 	React.useEffect(() => {
 		const category = categories.map(category => {
 			if (product?.categories.includes(category.id)) {
-				return category.name
+				return category?.name
 			}
 		})
 		const valuesThatAreNotUndefined = category.filter(Boolean)
@@ -78,10 +79,12 @@ export const ProductDetailScreen = () => {
 
 				<View className='mx-4 my-6 pt-3'>
 					<View>
-						<Text className='text-sm font-titilium-semibold text-gray-300 leading-5'>
-							{/* get tag, replace any space between tag with dash and join all tags with comma */}
-							{tags.map(tag => `#${tag.replace(/\s+/g, '-')}`).join(', ')}
-						</Text>
+						{tags ? (
+							<Text className='text-sm font-titilium-semibold text-gray-300 leading-5'>
+								{/* get tag, replace any space between tag with dash and join all tags together with space */}
+								{tags.map(tag => `#${tag!.replace(/\s+/g, '-')}`).join(' ')}
+							</Text>
+						) : null}
 						<Text className='text-3xl font-titilium-black text-neutral pt-1'>
 							{product?.name}
 						</Text>
@@ -127,22 +130,32 @@ export const ProductDetailScreen = () => {
 					</Pressable>
 				</View>
 
-				<Pressable
+				{/* add to cart btn */}
+				<Motion.Pressable
 					onPress={() => {
 						addToCart(product)
 						ToastAndroid.show(
 							`${product?.name} added to cart`,
 							ToastAndroid.SHORT
 						)
-					}}
-					className='mt-5 px-8 py-4 mx-4 mb-5 bg-secondary rounded-xl flex flex-row justify-between items-center'>
-					<Text className='text-gray-300 font-titilium-bold text-lg'>
-						Add to cart
-					</Text>
-					<View className='bg-gray-500 rounded-lg py-1 px-5'>
-						<Ionicons name='ios-cart' size={24} color='#fafafa' />
-					</View>
-				</Pressable>
+					}}>
+					<Motion.View
+						className='mt-5 px-8 py-4 mx-4 mb-5 bg-secondary rounded-xl flex flex-row justify-between items-center shadow-2xl'
+						// whileHover={{ scale: 1.2 }}
+						whileTap={{ y: 5, scale: 0.98 }}
+						transition={{
+							type: 'spring',
+							// damping: 20,
+							// stiffness: 300,
+						}}>
+						<Text className='text-gray-300 font-titilium-bold text-lg'>
+							Add to cart
+						</Text>
+						<View className='bg-gray-500 rounded-lg py-1 px-5'>
+							<Ionicons name='ios-cart' size={24} color='#fafafa' />
+						</View>
+					</Motion.View>
+				</Motion.Pressable>
 			</ScrollView>
 		</SafeAreaView>
 	)
