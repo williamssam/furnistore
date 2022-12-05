@@ -25,7 +25,7 @@ export const Product = ({ categoryProducts }: ProductProps) => {
 	const addToCart = useProductStore(state => state.addToCart)
 
 	return (
-		<View className='pt-6 mt-6' style={{ flex: 1, height: height - 350 }}>
+		<View className='pt-4 mt-6' style={{ flex: 1, height: height - 350 }}>
 			<Swiper
 				cardStyle={{
 					flex: 1,
@@ -40,12 +40,12 @@ export const Product = ({ categoryProducts }: ProductProps) => {
 								product: product,
 							})
 						}
-						className='bg-gray-200 rounded-3xl px-6 pt-3 pb-10 flex flex-col items-center justify-center'>
+						className='bg-secondary rounded-3xl px-6 pb-6 flex flex-col items-center justify-center'>
 						<Image source={product?.image} className='w-72 h-72' />
 
 						<View className='self-start flex items-center justify-between flex-row w-full pt-1'>
 							<View>
-								<Text className='text-2xl font-titilium-bold'>
+								<Text className='text-2xl text-neutral font-titilium-bold'>
 									{product?.name}
 								</Text>
 								<NumericFormat
@@ -54,7 +54,7 @@ export const Product = ({ categoryProducts }: ProductProps) => {
 									displayType='text'
 									prefix='$'
 									renderText={value => (
-										<Text className='font-titilium-bold text-lg text-gray-600 leading-5'>
+										<Text className='font-titilium-bold text-lg text-gray-400'>
 											{value}
 										</Text>
 									)}
@@ -69,8 +69,8 @@ export const Product = ({ categoryProducts }: ProductProps) => {
 										ToastAndroid.SHORT
 									)
 								}}
-								className='w-12 h-12 flex flex-col items-center justify-center rounded-xl bg-gray-900'>
-								<Ionicons name='ios-cart-sharp' size={24} color='#fafafa' />
+								className='w-12 h-12 flex flex-col ml-6 items-center justify-center rounded-xl bg-neutral'>
+								<Ionicons name='ios-cart-sharp' size={26} color='#1d1d1f' />
 							</Pressable>
 						</View>
 					</Pressable>

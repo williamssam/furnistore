@@ -7,7 +7,7 @@ export const SettingsScreen = () => {
 	const navigation = useNavigation()
 
 	return (
-		<SafeAreaView>
+		<SafeAreaView className='flex-1 bg-black'>
 			<Header title='Settings' />
 
 			{/* <Pressable onPress={toggleColorScheme} className='p-4 dark:bg-slate-800'>

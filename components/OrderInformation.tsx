@@ -12,14 +12,14 @@ export const OrderInformation = ({
 	total,
 }: OrderInformationProps) => {
 	return (
-		<View className='p-6 mt-3 bg-white rounded-tr-3xl rounded-tl-3xl shadow-2xl'>
+		<View className='p-6 mt-5 bg-secondary rounded-tr-3xl rounded-tl-3xl shadow-2xl'>
 			<View>
-				<Text className='text-xl text-gray-700 font-titilium-bold'>
+				<Text className='text-xl text-gray-100 font-titilium-bold'>
 					Order Information
 				</Text>
 
 				<View className='flex flex-row mt-2 items-center justify-between'>
-					<Text className='font-titilium-semibold text-sm text-gray-600'>
+					<Text className='font-titilium-semibold text-base text-gray-300'>
 						Subtotal
 					</Text>
 					<NumericFormat
@@ -28,22 +28,20 @@ export const OrderInformation = ({
 						displayType='text'
 						prefix='$'
 						renderText={value => (
-							<Text className='font-titilium-bold text-base text-gray-800'>
+							<Text className='font-titilium-bold text-base text-neutral'>
 								{value}
 							</Text>
 						)}
 					/>
 				</View>
 				<View className='flex flex-row mt-2 items-center justify-between'>
-					<Text className='font-titilium-semibold text-sm text-gray-600'>
+					<Text className='font-titilium-semibold text-base text-gray-300'>
 						Shipping cost
 					</Text>
-					<Text className='font-titilium-bold text-base text-gray-800'>
-						{0}
-					</Text>
+					<Text className='font-titilium-bold text-base text-neutral'>{0}</Text>
 				</View>
 				<View className='flex flex-row mt-2 pt-2 items-center justify-between border-t border-dashed border-t-gray-400'>
-					<Text className='font-titilium-bold text-base text-gray-700'>
+					<Text className='font-titilium-bold text-base text-gray-300'>
 						Total
 					</Text>
 					<NumericFormat
@@ -52,7 +50,7 @@ export const OrderInformation = ({
 						displayType='text'
 						prefix='$'
 						renderText={value => (
-							<Text className='font-titilium-bold text-xl text-gray-800'>
+							<Text className='font-titilium-bold text-xl text-neutral'>
 								{value}
 							</Text>
 						)}
@@ -61,12 +59,12 @@ export const OrderInformation = ({
 			</View>
 
 			{/* checkout button */}
-			<Pressable className='mt-7 px-8 py-4 bg-black rounded-xl flex flex-row justify-between items-center'>
-				<Text className='text-white font-titilium-bold text-lg'>
+			<Pressable className='mt-7 px-8 py-4 bg-neutral rounded-xl flex flex-row justify-between items-center'>
+				<Text className='text-secondary font-titilium-bold text-lg'>
 					Procced to checkout
 				</Text>
-				<View className='bg-gray-100 rounded-lg py-1 px-4'>
-					<Ionicons name='arrow-forward-outline' size={24} color='black' />
+				<View className='bg-secondary rounded-lg py-1 px-4'>
+					<Ionicons name='arrow-forward-outline' size={24} color='#fafafa' />
 				</View>
 			</Pressable>
 		</View>

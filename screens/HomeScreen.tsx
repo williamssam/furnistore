@@ -25,23 +25,24 @@ export const HomeScreen = () => {
 	}, [selectedIndex])
 
 	return (
-		<SafeAreaView>
-			<StatusBar backgroundColor='#fff' />
+		<SafeAreaView className='flex-1 bg-black'>
+			<StatusBar style='light' />
 
 			{/* <ScrollView showsVerticalScrollIndicator={false}> */}
 			<View className='pt-4 pb-6'>
 				{/* <Text className='text-3xl font-titilium-bold text-gray-900 mx-4 lowercase'>
 						Find the best modern design furniture in the field
 					</Text> */}
-				<Text className='text-2xl font-titilium-black text-gray-900 mx-4'>
+				<Text className='text-3xl font-titilium-black text-neutral mx-4'>
 					Find modern furniture design
 				</Text>
 
-				<View className='mt-3 bg-gray-200 rounded-xl mx-4 flex flex-row items-center py-4 pl-3 pr-4'>
-					<Ionicons name='search-outline' size={24} color='black' />
+				<View className='mt-3 bg-secondary rounded-xl mx-4 flex flex-row items-center py-4 px-5'>
+					<Ionicons name='search-outline' size={24} color='#a1a0a3' />
 					<TextInput
 						placeholder='Search furniture'
-						className='text-lg ml-4 font-titilium-regular text-gray-800 lowercase'
+						className='text-lg ml-4 font-titilium-regular text-neutral lowercase'
+						placeholderTextColor='#a1a0a3'
 					/>
 				</View>
 

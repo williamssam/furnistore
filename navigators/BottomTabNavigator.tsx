@@ -1,5 +1,6 @@
 import { Ionicons } from '@expo/vector-icons'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { TabBar } from '../components/TabBar'
 import { BottomTabStackParamList } from '../models/navigators'
 import { CartScreen } from '../screens/CartScreen'
 import { FavouritesScreen } from '../screens/FavouritesScreen'
@@ -11,7 +12,7 @@ export const BottomTabNavigator = () => {
 	return (
 		<Tab.Navigator
 			initialRouteName='Home'
-			// tabBar={props => <TabBar {...props} />}
+			tabBar={props => <TabBar {...props} />}
 			screenOptions={({ route }) => ({
 				headerShown: false,
 				tabBarIcon: ({ focused, color, size }) => {
@@ -29,9 +30,13 @@ export const BottomTabNavigator = () => {
 
 					return <Ionicons name={iconName} size={size} color={color} />
 				},
-				tabBarActiveTintColor: '#000',
-				tabBarInactiveTintColor: 'gray',
+				tabBarActiveTintColor: '#fafafa',
+				tabBarInactiveTintColor: '#464c5a',
 				tabBarShowLabel: false,
+				tabBarStyle: {
+					backgroundColor: '#1d1d1f',
+					borderWidth: 0,
+				},
 			})}>
 			<Tab.Screen name='Home' component={HomeScreen} />
 			<Tab.Screen name='Cart' component={CartScreen} />

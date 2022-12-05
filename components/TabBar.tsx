@@ -1,15 +1,12 @@
-// import React from 'react'
 // https://jaka-tertinek.medium.com/custom-bottom-tab-navigator-react-native-cda675172dac
 import { Ionicons } from '@expo/vector-icons'
 import { Dimensions, Pressable, StyleSheet, View } from 'react-native'
-
-// import NavigationIcon from './navigationIcon'
 
 const { width } = Dimensions.get('window')
 
 export const TabBar = ({ state, descriptors, navigation }: any) => {
 	return (
-		<View className='absolute bottom-2 bg-gray-900 rounded-xl mx-4 flex flex-row py-1'>
+		<View className='absolute bottom-1 bg-secondary rounded-xl mx-4 flex flex-row py-2'>
 			{state.routes.map((route: any, index: number) => {
 				const { options } = descriptors[route.key]
 				const label =

@@ -12,9 +12,9 @@ export const Header = ({ title }: HeaderProps) => {
 	return (
 		<View className='mx-4 mb-4'>
 			<Pressable className='mt-4 mb-1' onPress={() => navigation.goBack()}>
-				<AntDesign name='arrowleft' size={24} color='black' />
+				<AntDesign name='arrowleft' size={24} color='#fafafa' />
 			</Pressable>
-			<Text className='font-titilium-black text-3xl pt-2 capitalize'>
+			<Text className='font-titilium-black text-3xl pt-2 capitalize text-neutral'>
 				{title}
 			</Text>
 		</View>

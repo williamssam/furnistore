@@ -9,11 +9,8 @@ import { useProductStore } from './store/productStore'
 SplashScreen.preventAutoHideAsync()
 
 export default function App() {
-	const hasHydrated = useProductStore(state => state._hasHydrated)
+	const hasHydrated = useProductStore(state => state.hasHydrated)
 
-	// if () {
-	// 	return <p>Loading...</p>
-	// }
 	const [fontsLoaded] = useFonts({
 		'titilium-regular': require('./assets/fonts/TitilliumWeb-Regular.ttf'),
 		'titilium-semibold': require('./assets/fonts/TitilliumWeb-SemiBold.ttf'),
@@ -22,7 +19,7 @@ export default function App() {
 	})
 
 	const onLayoutRootView = useCallback(async () => {
-		if (fontsLoaded) {
+		if (fontsLoaded && hasHydrated) {
 			await SplashScreen.hideAsync()
 		}
 	}, [fontsLoaded])
