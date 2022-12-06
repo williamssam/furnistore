@@ -1,5 +1,4 @@
 import { AntDesign, Ionicons } from '@expo/vector-icons'
-import { Motion } from '@legendapp/motion'
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
 import * as React from 'react'
 import {
@@ -131,7 +130,8 @@ export const ProductDetailScreen = () => {
 				</View>
 
 				{/* add to cart btn */}
-				<Motion.Pressable
+				<Pressable
+					className='mt-5 px-8 py-4 mx-4 mb-5 bg-secondary rounded-xl flex flex-row justify-between items-center shadow-2xl'
 					onPress={() => {
 						addToCart(product)
 						ToastAndroid.show(
@@ -139,23 +139,13 @@ export const ProductDetailScreen = () => {
 							ToastAndroid.SHORT
 						)
 					}}>
-					<Motion.View
-						className='mt-5 px-8 py-4 mx-4 mb-5 bg-secondary rounded-xl flex flex-row justify-between items-center shadow-2xl'
-						// whileHover={{ scale: 1.2 }}
-						whileTap={{ y: 5, scale: 0.98 }}
-						transition={{
-							type: 'spring',
-							// damping: 20,
-							// stiffness: 300,
-						}}>
-						<Text className='text-gray-300 font-titilium-bold text-lg'>
-							Add to cart
-						</Text>
-						<View className='bg-gray-500 rounded-lg py-1 px-5'>
-							<Ionicons name='ios-cart' size={24} color='#fafafa' />
-						</View>
-					</Motion.View>
-				</Motion.Pressable>
+					<Text className='text-gray-300 font-titilium-bold text-lg'>
+						Add to cart
+					</Text>
+					<View className='bg-gray-500 rounded-lg py-1 px-5'>
+						<Ionicons name='ios-cart' size={24} color='#fafafa' />
+					</View>
+				</Pressable>
 			</ScrollView>
 		</SafeAreaView>
 	)

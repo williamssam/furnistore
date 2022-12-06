@@ -9,7 +9,6 @@
     "web": "expo start --web"
   },
   "dependencies": {
-    "@legendapp/motion": "^2.2.0",
     "@react-native-async-storage/async-storage": "^1.17.11",
     "@react-navigation/bottom-tabs": "^6.4.3",
     "@react-navigation/native": "^6.0.16",
@@ -22,10 +21,12 @@
     "expo-status-bar": "~1.4.2",
     "immer": "^9.0.16",
     "jotai": "^1.10.0",
+    "moti": "^0.21.0",
     "nativewind": "^2.0.11",
     "react": "18.1.0",
     "react-native": "0.70.5",
     "react-native-deck-swiper": "^2.0.12",
+    "react-native-reanimated": "~2.12.0",
     "react-native-safe-area-context": "4.4.1",
     "react-native-screens": "~3.18.0",
     "react-native-svg": "13.4.0",

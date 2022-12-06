@@ -7,6 +7,7 @@ import { HomeScreen } from '../screens/HomeScreen'
 import { SettingsScreen } from '../screens/SettingsScreen'
 
 const Tab = createBottomTabNavigator<BottomTabStackParamList>()
+
 export const BottomTabNavigator = () => {
 	return (
 		<Tab.Navigator
