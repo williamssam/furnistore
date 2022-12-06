@@ -1,4 +1,3 @@
-import { Ionicons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 import {
 	Dimensions,
@@ -10,6 +9,7 @@ import {
 } from 'react-native'
 import Swiper from 'react-native-deck-swiper'
 import { NumericFormat } from 'react-number-format'
+import Cart from '../assets/icons/Cart'
 import { NavigationProps } from '../models/navigators'
 import { ProductType } from '../models/products'
 import { useProductStore } from '../store/productStore'
@@ -70,7 +70,7 @@ export const Product = ({ categoryProducts }: ProductProps) => {
 									)
 								}}
 								className='w-12 h-12 flex flex-col ml-6 items-center justify-center rounded-xl bg-neutral'>
-								<Ionicons name='ios-cart-sharp' size={26} color='#1d1d1f' />
+								<Cart />
 							</Pressable>
 						</View>
 					</Pressable>

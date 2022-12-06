@@ -13,7 +13,7 @@ import { EmptyComponent } from '../components/EmptyComponent'
 import { Header } from '../components/Header'
 import { OrderInformation } from '../components/OrderInformation'
 import { QuantityPicker } from '../components/QuantityPicker'
-import { ProductType } from '../models/products'
+import { CartType } from '../models/stores'
 import { useProductStore } from '../store/productStore'
 
 export const CartScreen = () => {
@@ -21,10 +21,13 @@ export const CartScreen = () => {
 	const removeFromCart = useProductStore(state => state.removeFromCart)
 
 	let shippingCost = 0
-	const subtotal = cart.reduce((acc, curr) => curr.price + acc, 0)
+	const subtotal = cart.reduce(
+		(acc, curr) => curr.price * curr.quantity + acc,
+		0
+	)
 	const total = subtotal + shippingCost
 
-	const renderItem = ({ item }: { item: ProductType }) => (
+	const renderItem = ({ item }: { item: CartType }) => (
 		<View className='flex items-center flex-row bg-secondary py-4 px-4 rounded-xl mb-5 mx-4'>
 			<View className='bg-gray-600 rounded-lg py-2 px-2'>
 				<Image source={item?.image} className='w-20 h-20' />
@@ -38,9 +41,9 @@ export const CartScreen = () => {
 					{item?.brand}
 				</Text>
 
-				<View className='flex flex-row items-center justify-between pt-2'>
+				<View className='flex flex-row items-center justify-between pt-4'>
 					<NumericFormat
-						value={item?.price}
+						value={item?.price * item?.quantity}
 						thousandSeparator=','
 						displayType='text'
 						prefix='$'
@@ -51,7 +54,7 @@ export const CartScreen = () => {
 						)}
 					/>
 
-					<QuantityPicker />
+					<QuantityPicker quantity={item?.quantity} id={item?.id} />
 				</View>
 			</View>
 
@@ -63,7 +66,7 @@ export const CartScreen = () => {
 						ToastAndroid.SHORT
 					)
 				}}
-				className='w-7 h-7 rounded-xl absolute left-0 top-0 bg-red-100 flex items-center justify-center'>
+				className='w-7 h-7 rounded-xl absolute right-0 top-2 bg-red-100 flex items-center justify-center'>
 				<Ionicons name='trash' size={18} color='red' />
 			</Pressable>
 		</View>
@@ -85,7 +88,11 @@ export const CartScreen = () => {
 				ListHeaderComponent={() => <Header title='Your shopping cart' />}
 				ListFooterComponent={() =>
 					cart.length > 0 ? (
-						<OrderInformation subtotal={subtotal} total={total} />
+						<OrderInformation
+							subtotal={subtotal}
+							total={total}
+							noOfItems={cart?.length}
+						/>
 					) : null
 				}
 			/>

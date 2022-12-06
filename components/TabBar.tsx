@@ -23,7 +23,7 @@ export const TabBar = ({
 	navigation,
 }: BottomTabBarProps) => {
 	return (
-		<View className='absolute bottom-2 bg-neutral rounded-2xl mx-4 flex flex-row px-3 py-[6px] shadow-2xl'>
+		<View className='absolute bottom-2 bg-neutral rounded-3xl mx-4 flex flex-row px-3 py-[6px] shadow-2xl'>
 			{state.routes.map((route, index) => {
 				// const { options } = descriptors[route.key]
 				// const label =
@@ -53,7 +53,7 @@ export const TabBar = ({
 						className='flex-1 justify-center items-center flex flex-row my-2'>
 						{isFocused ? (
 							<View className='flex flex-col items-center justify-center'>
-								<View className='w-2 h-2 bg-blue-800 rounded-full'></View>
+								<View className='w-2 h-2 bg-blue-800 rounded-full' />
 								<Text className='font-titilium-bold text-secondary uppercase tracking-wider text-sm leading-5 mt-[2px]'>
 									{route.name}
 								</Text>

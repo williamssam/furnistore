@@ -6,8 +6,14 @@ export type FavouriteState = {
 	removeFavouriteItem: (id: number) => void
 }
 
+export interface CartType extends ProductType {
+	quantity: number
+}
+
 export type CartState = {
-	cart: ProductType[]
+	cart: CartType[]
 	addToCart: (product: ProductType) => void
 	removeFromCart: (id: number) => void
+	increaseQuantity: (id: number) => void
+	decreaseQuantity: (id: number) => void
 }

@@ -5,11 +5,13 @@ import { NumericFormat } from 'react-number-format'
 type OrderInformationProps = {
 	subtotal: number
 	total: number
+	noOfItems: number
 }
 
 export const OrderInformation = ({
 	subtotal,
 	total,
+	noOfItems,
 }: OrderInformationProps) => {
 	return (
 		<View className='p-6 mt-5 bg-secondary rounded-tr-3xl rounded-tl-3xl shadow-2xl'>
@@ -42,7 +44,10 @@ export const OrderInformation = ({
 				</View>
 				<View className='flex flex-row mt-2 pt-2 items-center justify-between border-t border-dashed border-t-gray-400'>
 					<Text className='font-titilium-bold text-base text-gray-300'>
-						Total
+						Total{' '}
+						<Text className='text-gray-400'>{`(${noOfItems} ${
+							noOfItems > 1 ? 'items' : 'item'
+						})`}</Text>
 					</Text>
 					<NumericFormat
 						value={total}

@@ -10,7 +10,7 @@ export const Header = ({ title }: HeaderProps) => {
 	const navigation = useNavigation()
 
 	return (
-		<View className='mx-4 mb-4'>
+		<View className='mx-4 mb-8'>
 			<Pressable className='mt-4 mb-1' onPress={() => navigation.goBack()}>
 				<AntDesign name='arrowleft' size={24} color='#fafafa' />
 			</Pressable>
