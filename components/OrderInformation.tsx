@@ -1,6 +1,8 @@
 import { Ionicons } from '@expo/vector-icons'
+import { useNavigation } from '@react-navigation/native'
 import { Pressable, Text, View } from 'react-native'
 import { NumericFormat } from 'react-number-format'
+import { NavigationProps } from '../models/navigators'
 
 type OrderInformationProps = {
 	subtotal: number
@@ -13,6 +15,8 @@ export const OrderInformation = ({
 	total,
 	noOfItems,
 }: OrderInformationProps) => {
+	const navigation = useNavigation<NavigationProps>()
+
 	return (
 		<View className='p-6 mt-5 bg-secondary rounded-tr-3xl rounded-tl-3xl shadow-2xl'>
 			<View>
@@ -64,7 +68,9 @@ export const OrderInformation = ({
 			</View>
 
 			{/* checkout button */}
-			<Pressable className='mt-7 mb-16 px-8 py-4 bg-neutral rounded-xl flex flex-row justify-between items-center'>
+			<Pressable
+				onPress={() => navigation.navigate('Checkout')}
+				className='mt-7 mb-16 px-8 py-4 bg-neutral rounded-xl flex flex-row justify-between items-center'>
 				<Text className='text-secondary font-titilium-bold text-lg'>
 					Procced to checkout
 				</Text>
