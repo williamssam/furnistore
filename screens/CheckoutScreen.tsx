@@ -1,15 +1,24 @@
 import { Ionicons } from '@expo/vector-icons'
+import { useNavigation } from '@react-navigation/native'
 import * as React from 'react'
 import { Pressable, ScrollView, Text, TextInput, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { NumericFormat } from 'react-number-format'
 import { Header } from '../components/Header'
+import { PaymentInformation } from '../components/PaymentInformation'
+import { NavigationProps } from '../models/navigators'
 import { useProductStore } from '../store/productStore'
 
 export const CheckoutScreen = () => {
 	const [text, onChangeText] = React.useState('')
+	const navigation = useNavigation<NavigationProps>()
 	const products = useProductStore(state => state.cart)
 	const removeFromCart = useProductStore(state => state.removeFromCart)
+
+	const total = products.reduce(
+		(acc, curr) => curr.price * curr.quantity + acc,
+		0
+	)
 
 	return (
 		<SafeAreaView className='flex-1 bg-black'>
@@ -65,7 +74,7 @@ export const CheckoutScreen = () => {
 							Total
 						</Text>
 						<NumericFormat
-							value={100}
+							value={total}
 							thousandSeparator=','
 							displayType='text'
 							prefix='$'
@@ -82,7 +91,7 @@ export const CheckoutScreen = () => {
 						<Text className='font-titilium-semibold text-sm text-green-800'>
 							Your total saving on this order is
 						</Text>
-						<Text className='font-titilium-semibold text-base text-green-800'>
+						<Text className='font-titilium-bold text-base text-green-800'>
 							$200
 						</Text>
 					</View>
@@ -120,62 +129,25 @@ export const CheckoutScreen = () => {
 				</View>
 
 				{/* card form */}
-				<View className='mx-4 mt-5 p-5 bg-secondary rounded-xl'>
-					<Text className='text-gray-300 font-titilium-bold text-base uppercase tracking-wider'>
-						Payment information
+				<PaymentInformation />
+
+				<Pressable
+					onPress={() => navigation.navigate('Success')}
+					className='mt-8 px-8 py-3 bg-neutral rounded-xl flex flex-row justify-between items-center mx-4 shadow-xl'>
+					<Text className='text-secondary font-titilium-bold text-lg'>
+						Confirm payment
 					</Text>
-
-					<View className='mt-3'>
-						<View>
-							<Text className='text-gray-300 text-sm'>Name on card</Text>
-							<TextInput
-								onChangeText={onChangeText}
-								value={text}
-								placeholder='Card Name'
-								className='text-base p-4 mt-1 font-titilium-regular text-black bg-neutral rounded-lg'
-								placeholderTextColor='rgb(107,114,128)'
-							/>
-						</View>
-						<View className='mt-3'>
-							<Text className='text-gray-300 text-sm'>Card numer</Text>
-							<TextInput
-								onChangeText={onChangeText}
-								value={text}
-								placeholder='Where you want the goods delivered to'
-								className='text-base p-4 mt-1 font-titilium-regular text-black bg-neutral rounded-lg'
-								placeholderTextColor='rgb(107,114,128)'
-							/>
-						</View>
-
-						<View className='flex flex-row items-center mt-3'>
-							<View className='flex-1'>
-								<Text className='text-gray-300 text-sm'>Expiry</Text>
-								<TextInput
-									onChangeText={onChangeText}
-									value={text}
-									placeholder='MM/YY'
-									className='text-base p-4 mt-1 font-titilium-regular text-black bg-neutral rounded-lg'
-									placeholderTextColor='rgb(107,114,128)'
-								/>
-							</View>
-							<View className='flex-1 ml-5'>
-								<Text className='text-gray-300 text-sm'>CCV</Text>
-								<TextInput
-									onChangeText={onChangeText}
-									value={text}
-									placeholder='Three number at the back of your card'
-									className='text-base p-4 mt-1 font-titilium-regular text-black bg-neutral rounded-lg'
-									placeholderTextColor='rgb(107,114,128)'
-								/>
-							</View>
-						</View>
-					</View>
-				</View>
-
-				<Pressable className='p-4 bg-neutral rounded-xl mx-4 mt-8 shadow-xl'>
-					<Text className='text-secondary text-center font-titilium-semibold text-lg'>
-						Confirm payment - $100
-					</Text>
+					<NumericFormat
+						value={total}
+						thousandSeparator=','
+						displayType='text'
+						prefix='$'
+						renderText={value => (
+							<Text className='font-titilium-semibold text-lg text-neutral bg-secondary rounded-lg py-1 px-4'>
+								{value}
+							</Text>
+						)}
+					/>
 				</Pressable>
 
 				<Text className='text-neutral text-center px-5 text-sm mt-1 mb-5 font-titilium-semibold'>

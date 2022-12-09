@@ -12,7 +12,7 @@ export const QuantityPicker = ({ quantity, id }: QuantityPickerProps) => {
 	const decreaseQuantity = useProductStore(state => state.decreaseQuantity)
 
 	return (
-		<View className='flex flex-row items-center bg-gray-400 ml-12'>
+		<View className='flex flex-row items-center bg-gray-400'>
 			<Pressable
 				className='bg-gray-600 py-1 px-2 mr-2'
 				onPress={() => increaseQuantity(id)}>

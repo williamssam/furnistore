@@ -114,7 +114,9 @@ export const ProductDetailScreen = () => {
 							/>
 						</View>
 
-						<QuantityPicker />
+						<View>
+							<QuantityPicker quantity={5} id={product?.id} />
+						</View>
 					</View>
 
 					<Text className='text-base font-titilium-regular pt-6 text-gray-300'>

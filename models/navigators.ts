@@ -8,6 +8,7 @@ export type RootStackParamList = {
 		product: ProductType
 	}
 	Checkout: undefined
+	Success: undefined
 }
 
 export type BottomTabStackParamList = {

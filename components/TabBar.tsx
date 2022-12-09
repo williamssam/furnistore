@@ -63,7 +63,7 @@ export const TabBar = ({
 								{icons[route.name as keyof typeof icons]}
 							</Pressable>
 						)}
-						{/* <NavigationIcon route={label} isFocused={isFocused} /> */}
+						{/* <NavigationIcon r oute={label} isFocused={isFocused} /> */}
 					</View>
 				)
 			})}

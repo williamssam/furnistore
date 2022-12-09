@@ -4,9 +4,10 @@ import { Pressable, Text, View } from 'react-native'
 
 type HeaderProps = {
 	title: string
+	subtitle?: string
 }
 
-export const Header = ({ title }: HeaderProps) => {
+export const Header = ({ title, subtitle }: HeaderProps) => {
 	const navigation = useNavigation()
 
 	return (
@@ -17,6 +18,11 @@ export const Header = ({ title }: HeaderProps) => {
 			<Text className='font-titilium-black text-3xl pt-2 capitalize text-neutral'>
 				{title}
 			</Text>
+			{subtitle ? (
+				<Text className='font-titilium-regular text-gray-300 text-sm'>
+					{subtitle}
+				</Text>
+			) : null}
 		</View>
 	)
 }

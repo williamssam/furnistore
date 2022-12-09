@@ -30,12 +30,14 @@ export const HomeScreen = () => {
 
 			{/* <ScrollView showsVerticalScrollIndicator={false}> */}
 			<View className='pt-4 pb-6'>
-				{/* <Text className='text-3xl font-titilium-bold text-gray-900 mx-4 lowercase'>
-						Find the best modern design furniture in the field
-					</Text> */}
-				<Text className='text-3xl font-titilium-black text-neutral mx-4'>
-					Find modern furniture design
-				</Text>
+				<View className='mx-4'>
+					<Text className='text-2xl font-titilium-regular text-gray-300'>
+						Find the best modern
+					</Text>
+					<Text className='text-4xl font-titilium-black text-neutral'>
+						Furniture! 🛋️
+					</Text>
+				</View>
 
 				<View className='mt-3 bg-secondary rounded-xl mx-4 flex flex-row items-center py-4 px-5'>
 					<Ionicons name='search-outline' size={24} color='#a1a0a3' />
