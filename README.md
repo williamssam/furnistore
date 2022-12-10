@@ -1,4 +1,4 @@
-# FurniChair Ecommerce Store
+# FurniStore Ecommerce Store
 
 ### Stack used
 

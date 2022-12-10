@@ -1,6 +1,7 @@
 import { NavigationContainer } from '@react-navigation/native'
 import { useFonts } from 'expo-font'
 import * as SplashScreen from 'expo-splash-screen'
+import { StatusBar } from 'expo-status-bar'
 import { useCallback } from 'react'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { AppNavigator } from './navigators/AppNavigator'
@@ -24,12 +25,13 @@ export default function App() {
 		}
 	}, [fontsLoaded, hasHydrated])
 
-	if (!fontsLoaded) {
+	if (!fontsLoaded && !hasHydrated) {
 		return null
 	}
 
 	return (
 		<SafeAreaProvider onLayout={onLayoutRootView} style={{ flex: 1 }}>
+			<StatusBar style='light' />
 			<NavigationContainer>
 				<AppNavigator />
 			</NavigationContainer>
