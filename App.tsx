@@ -29,6 +29,9 @@ export default function App() {
 		return null
 	}
 
+	console.log('fontsLoaded', fontsLoaded)
+	console.log('hasHydrated', hasHydrated)
+
 	return (
 		<SafeAreaProvider onLayout={onLayoutRootView} style={{ flex: 1 }}>
 			<StatusBar style='light' />

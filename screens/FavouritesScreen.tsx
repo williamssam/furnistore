@@ -62,7 +62,7 @@ export const FavouritesScreen = () => {
 						onPress={() => {
 							addToCart(item)
 							ToastAndroid.show(
-								`${item?.name} added to cart`,
+								`${item?.name} added to your cart 🎉`,
 								ToastAndroid.SHORT
 							)
 						}}

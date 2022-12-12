@@ -2,17 +2,13 @@ import { StateCreator } from 'zustand'
 import { immer } from 'zustand/middleware/immer'
 import { CartState } from '../models/stores'
 
-const initialState = {
-	cart: [],
-}
-
 export const createCartSlice: StateCreator<
 	CartState,
 	[],
 	[['zustand/immer', never]],
 	CartState
 > = immer(set => ({
-	...initialState,
+	cart: [],
 	addToCart: product =>
 		set(state => {
 			// if state contains the product, do not add the product again instead increase the quantity
@@ -43,5 +39,5 @@ export const createCartSlice: StateCreator<
 				}
 			})
 		),
-	clearCart: () => set(initialState),
+	clearCart: () => set(state => ({ cart: [] })),
 }))

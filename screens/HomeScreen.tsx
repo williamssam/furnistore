@@ -28,7 +28,6 @@ export const HomeScreen = () => {
 		<SafeAreaView className='flex-1 bg-black'>
 			<StatusBar style='light' />
 
-			{/* <ScrollView showsVerticalScrollIndicator={false}> */}
 			<View className='pt-4 pb-6'>
 				<View className='mx-4'>
 					<Text className='text-2xl font-titilium-regular text-gray-300'>
@@ -56,7 +55,6 @@ export const HomeScreen = () => {
 
 				<Product categoryProducts={categoryProducts} />
 			</View>
-			{/* </ScrollView> */}
 		</SafeAreaView>
 	)
 }

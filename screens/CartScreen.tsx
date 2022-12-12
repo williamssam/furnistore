@@ -112,7 +112,7 @@ export const CartScreen = () => {
 					renderItem(product, () => {
 						removeFromCart(product?.item?.id)
 						ToastAndroid.show(
-							`${product?.item?.name} remove from cart`,
+							`${product?.item?.name} removed from your cart`,
 							ToastAndroid.SHORT
 						)
 					})

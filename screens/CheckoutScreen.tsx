@@ -11,6 +11,7 @@ import { useProductStore } from '../store/productStore'
 
 export const CheckoutScreen = () => {
 	const [text, onChangeText] = React.useState('')
+	const [coupon, setCoupon] = React.useState('')
 	const navigation = useNavigation<NavigationProps>()
 	const products = useProductStore(state => state.cart)
 	const removeFromCart = useProductStore(state => state.removeFromCart)
@@ -87,20 +88,20 @@ export const CheckoutScreen = () => {
 					</View>
 
 					{/* saving alert */}
-					<View className='flex flex-row items-center justify-between p-3 border-2 border-green-400 bg-green-200 rounded-lg my-3'>
+					{/* <View className='flex flex-row items-center justify-between p-3 border-2 border-green-400 bg-green-200 rounded-lg my-3'>
 						<Text className='font-titilium-semibold text-sm text-green-800'>
 							Your total saving on this order is
 						</Text>
 						<Text className='font-titilium-bold text-base text-green-800'>
 							$200
 						</Text>
-					</View>
+					</View> */}
 
 					{/* coupon section */}
 					<View className='flex flex-row item-center mt-2'>
 						<TextInput
 							onChangeText={onChangeText}
-							value={text}
+							value={coupon}
 							placeholder='Coupon code'
 							className='text-base px-4 py-3 font-titilium-regular text-black bg-neutral rounded-lg flex-1'
 							placeholderTextColor='rgb(107,114,128)'

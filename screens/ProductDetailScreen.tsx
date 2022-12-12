@@ -2,7 +2,6 @@ import { AntDesign, Ionicons } from '@expo/vector-icons'
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
 import * as React from 'react'
 import {
-	Dimensions,
 	Image,
 	Pressable,
 	ScrollView,
@@ -16,8 +15,6 @@ import { QuantityPicker } from '../components/QuantityPicker'
 import { categories } from '../data/categories'
 import { RootStackParamList } from '../models/navigators'
 import { useProductStore } from '../store/productStore'
-
-const { width } = Dimensions.get('window')
 
 export const ProductDetailScreen = () => {
 	const navigation = useNavigation()
@@ -36,8 +33,8 @@ export const ProductDetailScreen = () => {
 		favourite => favourite.id === product.id
 	)
 
-	// check the cateogry id in each product then compare them with the cateories id and get the name
 	React.useEffect(() => {
+		// check the cateogry id in each product then compare them with the cateories id and get the name
 		const category = categories.map(category => {
 			if (product?.categories.includes(category.id)) {
 				return category?.name
@@ -137,7 +134,7 @@ export const ProductDetailScreen = () => {
 					onPress={() => {
 						addToCart(product)
 						ToastAndroid.show(
-							`${product?.name} added to cart`,
+							`${product?.name} added to your cart 🎉`,
 							ToastAndroid.SHORT
 						)
 					}}>

@@ -65,7 +65,7 @@ export const Product = ({ categoryProducts }: ProductProps) => {
 								onPress={() => {
 									addToCart(product)
 									ToastAndroid.show(
-										`${product?.name} added to cart`,
+										`${product?.name} added to your cart 🎉`,
 										ToastAndroid.SHORT
 									)
 								}}
