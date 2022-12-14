@@ -9,13 +9,13 @@ export const createCartSlice: StateCreator<
 	CartState
 > = immer(set => ({
 	cart: [],
-	addToCart: product =>
+	addToCart: (product, quantity) =>
 		set(state => {
-			// if state contains the product, do not add the product again instead increase the quantity
+			// if state contains the product, do not add the product again instead increase the quantity by 1 or by quantity passed as function parameter
 			state.cart.some(prod => prod.id === product.id)
 				? state.cart.find(prod => {
 						if (prod.id === product.id) {
-							prod.quantity += 1
+							prod.quantity += quantity ?? 1
 						}
 				  })
 				: state.cart.push({ ...product, quantity: 1 })

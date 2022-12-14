@@ -25,12 +25,9 @@ export default function App() {
 		}
 	}, [fontsLoaded, hasHydrated])
 
-	if (!fontsLoaded && !hasHydrated) {
+	if (!fontsLoaded) {
 		return null
 	}
-
-	console.log('fontsLoaded', fontsLoaded)
-	console.log('hasHydrated', hasHydrated)
 
 	return (
 		<SafeAreaProvider onLayout={onLayoutRootView} style={{ flex: 1 }}>

@@ -31,7 +31,7 @@ export const HomeScreen = () => {
 			<View className='pt-4 pb-6'>
 				<View className='mx-4'>
 					<Text className='text-2xl font-titilium-regular text-gray-300'>
-						Find the best modern
+						Find the best, modern
 					</Text>
 					<Text className='text-4xl font-titilium-black text-neutral'>
 						Furniture! 🛋️

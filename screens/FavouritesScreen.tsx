@@ -90,10 +90,10 @@ export const FavouritesScreen = () => {
 				keyExtractor={item => String(item?.id)}
 				numColumns={2}
 				showsHorizontalScrollIndicator={false}
-				ListHeaderComponent={() => <Header title='Your favourites item' />}
+				ListHeaderComponent={() => <Header title='Your favourites' />}
 				ListEmptyComponent={() => (
 					<EmptyComponent
-						title='Your favourites is empty'
+						title='No favourites'
 						subtitle='Please add a few item'
 					/>
 				)}

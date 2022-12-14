@@ -12,7 +12,7 @@ export interface CartType extends ProductType {
 
 export type CartState = {
 	cart: CartType[]
-	addToCart: (product: ProductType) => void
+	addToCart: (product: ProductType, quantity?: number) => void
 	removeFromCart: (id: number) => void
 	increaseQuantity: (id: number) => void
 	decreaseQuantity: (id: number) => void

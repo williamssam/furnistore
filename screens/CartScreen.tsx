@@ -21,6 +21,8 @@ import { useProductStore } from '../store/productStore'
 export const CartScreen = () => {
 	const cart = useProductStore(state => state.cart)
 	const removeFromCart = useProductStore(state => state.removeFromCart)
+	const increaseQuantity = useProductStore(state => state.increaseQuantity)
+	const decreaseQuantity = useProductStore(state => state.decreaseQuantity)
 
 	let row: Array<any> = []
 	let prevOpenedRow: { close: () => void }
@@ -93,7 +95,11 @@ export const CartScreen = () => {
 									)}
 								/>
 								<View className='ml-auto mr-24'>
-									<QuantityPicker quantity={item?.quantity} id={item?.id} />
+									<QuantityPicker
+										quantity={item?.quantity}
+										onIncrease={() => increaseQuantity(item?.id)}
+										onDecrease={() => decreaseQuantity(item?.id)}
+									/>
 								</View>
 							</View>
 						</View>

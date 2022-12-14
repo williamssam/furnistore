@@ -33,59 +33,67 @@ export const CheckoutScreen = () => {
 					</Text>
 
 					<View className='mt-2'>
-						{products?.map(product => (
-							<View
-								key={product?.id}
-								className='flex flex-row items-start justify-between mt-2'>
-								<View>
-									<Text className='text-neutral font-titilium-semibold text-base'>
-										{product?.name}
-									</Text>
-									<Text className='text-gray-300 font-titilium-regular text-sm'>
-										Quantity: {product?.quantity}
-									</Text>
-								</View>
+						{products.length > 0 ? (
+							products?.map(product => (
+								<View
+									key={product?.id}
+									className='flex flex-row items-start justify-between mt-2'>
+									<View>
+										<Text className='text-neutral font-titilium-semibold text-base'>
+											{product?.name}
+										</Text>
+										<Text className='text-gray-300 font-titilium-regular text-sm'>
+											Quantity: {product?.quantity}
+										</Text>
+									</View>
 
-								<View className='flex flex-row items-center'>
-									<NumericFormat
-										value={product?.price * product?.quantity}
-										thousandSeparator=','
-										displayType='text'
-										prefix='$'
-										renderText={value => (
-											<Text className='text-gray-300 font-titilium-semibold text-base'>
-												{value}
-											</Text>
-										)}
-									/>
+									<View className='flex flex-row items-center'>
+										<NumericFormat
+											value={product?.price * product?.quantity}
+											thousandSeparator=','
+											displayType='text'
+											prefix='$'
+											renderText={value => (
+												<Text className='text-gray-300 font-titilium-semibold text-base'>
+													{value}
+												</Text>
+											)}
+										/>
 
-									<Pressable
-										onPress={() => removeFromCart(product?.id)}
-										className='ml-3'>
-										<Ionicons name='trash' size={16} color='red' />
-									</Pressable>
+										<Pressable
+											onPress={() => removeFromCart(product?.id)}
+											className='ml-3'>
+											<Ionicons name='trash' size={16} color='red' />
+										</Pressable>
+									</View>
+									{/* <Text className=''>$110</Text> */}
 								</View>
-								{/* <Text className=''>$110</Text> */}
-							</View>
-						))}
+							))
+						) : (
+							<Text className='text-gray-400 text-sm'>
+								Your cart is empty. Add items to your cart.
+							</Text>
+						)}
 					</View>
 
-					<View className='mt-4 border-t border-dashed border-t-gray-400 flex flex-row items-center justify-between pt-2'>
-						<Text className='text-gray-300 font-titilium-semibold text-base'>
-							Total
-						</Text>
-						<NumericFormat
-							value={total}
-							thousandSeparator=','
-							displayType='text'
-							prefix='$'
-							renderText={value => (
-								<Text className='font-titilium-bold text-xl text-neutral'>
-									{value}
-								</Text>
-							)}
-						/>
-					</View>
+					{products.length > 0 ? (
+						<View className='mt-4 border-t border-dashed border-t-gray-400 flex flex-row items-center justify-between pt-2'>
+							<Text className='text-gray-300 font-titilium-semibold text-base'>
+								Total
+							</Text>
+							<NumericFormat
+								value={total}
+								thousandSeparator=','
+								displayType='text'
+								prefix='$'
+								renderText={value => (
+									<Text className='font-titilium-bold text-xl text-neutral'>
+										{value}
+									</Text>
+								)}
+							/>
+						</View>
+					) : null}
 
 					{/* saving alert */}
 					{/* <View className='flex flex-row items-center justify-between p-3 border-2 border-green-400 bg-green-200 rounded-lg my-3'>
@@ -98,21 +106,21 @@ export const CheckoutScreen = () => {
 					</View> */}
 
 					{/* coupon section */}
-					<View className='flex flex-row item-center mt-2'>
-						<TextInput
-							onChangeText={onChangeText}
-							value={coupon}
-							placeholder='Coupon code'
-							className='text-base px-4 py-3 font-titilium-regular text-black bg-neutral rounded-lg flex-1'
-							placeholderTextColor='rgb(107,114,128)'
-						/>
+					{products.length > 0 ? (
+						<View className='flex flex-row item-center mt-4'>
+							<TextInput
+								placeholder='Coupon code'
+								className='text-base px-4 py-3 font-titilium-regular text-black bg-neutral rounded-lg flex-1'
+								placeholderTextColor='rgb(107,114,128)'
+							/>
 
-						<Pressable className='bg-gray-300 p-4 rounded-lg ml-3'>
-							<Text className='font-titilium-bold text-center text-secondary text-sm uppercase'>
-								Apply
-							</Text>
-						</Pressable>
-					</View>
+							<Pressable className='bg-gray-300 p-4 rounded-lg ml-3'>
+								<Text className='font-titilium-bold text-center text-secondary text-sm uppercase'>
+									Apply
+								</Text>
+							</Pressable>
+						</View>
+					) : null}
 				</View>
 
 				{/* address form */}

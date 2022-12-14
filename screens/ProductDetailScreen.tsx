@@ -1,4 +1,4 @@
-import { AntDesign, Ionicons } from '@expo/vector-icons'
+import { Ionicons } from '@expo/vector-icons'
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
 import * as React from 'react'
 import {
@@ -11,6 +11,7 @@ import {
 } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { NumericFormat } from 'react-number-format'
+import ArrowLeft from '../assets/icons/ArrowLeft'
 import { QuantityPicker } from '../components/QuantityPicker'
 import { categories } from '../data/categories'
 import { RootStackParamList } from '../models/navigators'
@@ -19,7 +20,8 @@ import { useProductStore } from '../store/productStore'
 export const ProductDetailScreen = () => {
 	const navigation = useNavigation()
 	const [tags, setTags] = React.useState<(string | undefined)[]>([])
-	const [moreDesc, setMoreDesc] = React.useState(false)
+	// const [moreDesc, setMoreDesc] = React.useState(false)
+	const [productQuantity, setProductQuantity] = React.useState(1)
 	const addToCart = useProductStore(state => state.addToCart)
 	const { favouriteItem, favourites, removeFavouriteItem } = useProductStore(
 		state => state
@@ -33,6 +35,13 @@ export const ProductDetailScreen = () => {
 		favourite => favourite.id === product.id
 	)
 
+	const onIncreaseProductQuantity = () =>
+		setProductQuantity(productQuantity + 1)
+	const onDecreaseProductQuantity = () => {
+		if (productQuantity === 1) return
+		setProductQuantity(productQuantity - 1)
+	}
+
 	React.useEffect(() => {
 		// check the cateogry id in each product then compare them with the cateories id and get the name
 		const category = categories.map(category => {
@@ -40,8 +49,8 @@ export const ProductDetailScreen = () => {
 				return category?.name
 			}
 		})
-		const valuesThatAreNotUndefined = category.filter(Boolean)
-		setTags(valuesThatAreNotUndefined)
+		const getValuesThatAreNotUndefined = category.filter(Boolean)
+		setTags(getValuesThatAreNotUndefined)
 	}, [])
 
 	return (
@@ -49,7 +58,7 @@ export const ProductDetailScreen = () => {
 			<ScrollView showsVerticalScrollIndicator={false}>
 				<View className='flex flex-row items-center justify-between mx-2 mt-4 mb-1'>
 					<Pressable className='p-2' onPress={() => navigation.goBack()}>
-						<AntDesign name='arrowleft' size={24} color='#fafafa' />
+						<ArrowLeft />
 					</Pressable>
 
 					<Text className='font-titilium-semibold text-neutral text-xl'>
@@ -69,16 +78,16 @@ export const ProductDetailScreen = () => {
 					)}
 				</View>
 
-				<View className='flex flex-col items-center justify-center bg-gray-500 py-2 px-4 rounded-xl mx-4 mt-2'>
+				<View className='flex flex-col items-center justify-center bg-gray-500 py-2 px-4 rounded-xl mx-4 mt-2 shadow-2xl'>
 					<Image source={product?.image} className='w-96 h-96 object-contain' />
 				</View>
 
 				<View className='mx-4 my-6 pt-3'>
 					<View>
 						{tags ? (
-							<Text className='text-sm font-titilium-semibold text-gray-300 leading-5'>
+							<Text className='text-sm font-titilium-semibold text-gray-400 leading-5'>
 								{/* get tag, replace any space between tag with dash and join all tags together with space */}
-								{tags.map(tag => `#${tag!.replace(/\s+/g, '-')}`).join(' ')}
+								{tags.map(tag => `#${tag!.replace(/\s+/g, '-')}`).join('  ')}
 							</Text>
 						) : null}
 						<Text className='text-3xl font-titilium-black text-neutral pt-1'>
@@ -95,7 +104,7 @@ export const ProductDetailScreen = () => {
 
 					<View className='flex flex-row items-center justify-between pt-4'>
 						<View>
-							<Text className='font-titilium-regular text-sm text-gray-300'>
+							<Text className='font-titilium-regular text-sm text-gray-400'>
 								price
 							</Text>
 							<NumericFormat
@@ -112,27 +121,32 @@ export const ProductDetailScreen = () => {
 						</View>
 
 						<View>
-							<QuantityPicker quantity={5} id={product?.id} />
+							<QuantityPicker
+								quantity={productQuantity}
+								onIncrease={onIncreaseProductQuantity}
+								onDecrease={onDecreaseProductQuantity}
+							/>
 						</View>
 					</View>
 
-					<Text className='text-base font-titilium-regular pt-6 text-gray-300'>
-						{moreDesc
+					<Text className='text-base leading-7 font-titilium-regular pt-6 text-gray-400'>
+						{/* {moreDesc
 							? product?.description
-							: `${product?.description.slice(0, 200)}....`}
+							: `${product?.description.slice(0, 200)}....`} */}
+						{product?.description}
 					</Text>
-					<Pressable onPress={() => setMoreDesc(!moreDesc)} className='pt-1'>
+					{/* <Pressable onPress={() => setMoreDesc(!moreDesc)} className='pt-1'>
 						<Text className='text-gray-300 font-titilium-bold'>
 							{moreDesc ? 'Less' : 'More'}
 						</Text>
-					</Pressable>
+					</Pressable> */}
 				</View>
 
 				{/* add to cart btn */}
 				<Pressable
 					className='mt-5 px-8 py-4 mx-4 mb-5 bg-secondary rounded-xl flex flex-row justify-between items-center shadow-2xl'
 					onPress={() => {
-						addToCart(product)
+						addToCart(product, productQuantity)
 						ToastAndroid.show(
 							`${product?.name} added to your cart 🎉`,
 							ToastAndroid.SHORT
@@ -141,7 +155,7 @@ export const ProductDetailScreen = () => {
 					<Text className='text-gray-300 font-titilium-bold text-lg'>
 						Add to cart
 					</Text>
-					<View className='bg-gray-500 rounded-lg py-1 px-5'>
+					<View className='bg-gray-500 rounded-lg py-1 px-6'>
 						<Ionicons name='ios-cart' size={24} color='#fafafa' />
 					</View>
 				</Pressable>
