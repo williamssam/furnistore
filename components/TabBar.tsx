@@ -1,6 +1,7 @@
 // https://jaka-tertinek.medium.com/custom-bottom-tab-navigator-react-native-cda675172dac
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs'
 import { Pressable, Text, View } from 'react-native'
+import * as Animatable from 'react-native-animatable'
 import Cart from '../assets/icons/Cart'
 import Heart from '../assets/icons/Heart'
 import Home from '../assets/icons/Home'
@@ -14,8 +15,6 @@ const icons = {
 	Favourites: <Heart />,
 	Settings: <Settings />,
 }
-
-// type IconsType = typeof icons
 
 export const TabBar = ({
 	state,
@@ -52,16 +51,23 @@ export const TabBar = ({
 						key={index}
 						className='flex-1 justify-center items-center flex flex-row my-2'>
 						{isFocused ? (
-							<View className='flex flex-col items-center justify-center'>
+							<Animatable.View
+								animation={isFocused ? 'zoomIn' : 'zoomOut'}
+								duration={500}
+								className='flex flex-col items-center justify-center'>
 								<View className='w-2 h-2 bg-blue-800 rounded-full' />
 								<Text className='font-titilium-bold text-secondary uppercase tracking-wider text-sm leading-5 mt-[2px]'>
 									{route.name}
 								</Text>
-							</View>
+							</Animatable.View>
 						) : (
-							<Pressable onPress={onPress}>
-								{icons[route.name as keyof typeof icons]}
-							</Pressable>
+							<Animatable.View
+								animation={isFocused ? 'zoomOut' : 'zoomIn'}
+								duration={500}>
+								<Pressable onPress={onPress}>
+									{icons[route.name as keyof typeof icons]}
+								</Pressable>
+							</Animatable.View>
 						)}
 						{/* <NavigationIcon r oute={label} isFocused={isFocused} /> */}
 					</View>

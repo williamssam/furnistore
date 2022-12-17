@@ -12,6 +12,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { NumericFormat } from 'react-number-format'
 import ArrowLeft from '../assets/icons/ArrowLeft'
+import { Footer } from '../components/Footer'
 import { QuantityPicker } from '../components/QuantityPicker'
 import { categories } from '../data/categories'
 import { RootStackParamList } from '../models/navigators'
@@ -108,7 +109,7 @@ export const ProductDetailScreen = () => {
 								price
 							</Text>
 							<NumericFormat
-								value={product?.price}
+								value={product?.price * productQuantity}
 								thousandSeparator=','
 								displayType='text'
 								prefix='$'
@@ -159,6 +160,8 @@ export const ProductDetailScreen = () => {
 						<Ionicons name='ios-cart' size={24} color='#fafafa' />
 					</View>
 				</Pressable>
+
+				<Footer />
 			</ScrollView>
 		</SafeAreaView>
 	)
