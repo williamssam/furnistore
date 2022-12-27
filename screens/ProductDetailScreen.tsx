@@ -19,7 +19,7 @@ import { useProductStore } from '../store/productStore'
 
 export const ProductDetailScreen = () => {
 	const navigation = useNavigation()
-	const [tags, setTags] = React.useState<(string | undefined)[]>([])
+	const [tags, setTags] = React.useState<string[]>([])
 	// const [moreDesc, setMoreDesc] = React.useState(false)
 	const [productQuantity, setProductQuantity] = React.useState(1)
 	const addToCart = useProductStore(state => state.addToCart)
@@ -49,7 +49,7 @@ export const ProductDetailScreen = () => {
 				return category?.name
 			}
 		})
-		const getValuesThatAreNotUndefined = category.filter(Boolean)
+		const getValuesThatAreNotUndefined = category.filter(Boolean) as string[]
 		setTags(getValuesThatAreNotUndefined)
 	}, [])
 

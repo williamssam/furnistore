@@ -26,7 +26,7 @@ export const useProductStore = create<ProductType>()(
 			name: 'product-store',
 			getStorage: () => AsyncStorage,
 			onRehydrateStorage: () => state => {
-				state.setHasHydrated(true)
+				state && state.setHasHydrated(true)
 			},
 		}
 	)

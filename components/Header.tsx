@@ -1,6 +1,6 @@
-import { AntDesign } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 import { Pressable, Text, View } from 'react-native'
+import ArrowLeft from '../assets/icons/ArrowLeft'
 
 type HeaderProps = {
 	title: string
@@ -13,7 +13,7 @@ export const Header = ({ title, subtitle }: HeaderProps) => {
 	return (
 		<View className='mx-4 mb-8'>
 			<Pressable className='mt-4 mb-1' onPress={() => navigation.goBack()}>
-				<AntDesign name='arrowleft' size={24} color='#fafafa' />
+				<ArrowLeft />
 			</Pressable>
 			<Text className='font-titilium-black text-3xl pt-2 capitalize text-neutral'>
 				{title}

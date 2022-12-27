@@ -7,8 +7,6 @@ import Heart from '../assets/icons/Heart'
 import Home from '../assets/icons/Home'
 import Settings from '../assets/icons/Settings'
 
-// const { width } = Dimensions.get('window')
-
 const icons = {
 	Home: <Home />,
 	Cart: <Cart />,
