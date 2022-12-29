@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { EmptyComponent } from '../components/EmptyComponent'
 import { Header } from '../components/Header'
 
 export const SettingsScreen = () => {
@@ -12,6 +13,10 @@ export const SettingsScreen = () => {
 					Change theme
 				</Text>
 			</View> */}
+			<EmptyComponent
+				title='Created by Williams Samuel'
+				subtitle='Find more react native project on my github'
+			/>
 		</SafeAreaView>
 	)
 }

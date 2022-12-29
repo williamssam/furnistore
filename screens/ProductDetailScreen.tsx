@@ -12,17 +12,55 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { NumericFormat } from 'react-number-format'
 import ArrowLeft from '../assets/icons/ArrowLeft'
+import ShoppingBag from '../assets/icons/ShoppingBag'
 import { QuantityPicker } from '../components/QuantityPicker'
 import { categories } from '../data/categories'
-import { RootStackParamList } from '../models/navigators'
+import { NavigationProps, RootStackParamList } from '../models/navigators'
+import { Action, InitalStateType } from '../models/products'
 import { useProductStore } from '../store/productStore'
 
+const initalState: InitalStateType = {
+	tags: [],
+	moreDesc: false,
+	productQuantity: 1,
+}
+
+const productReducer = (state: InitalStateType, action: Action) => {
+	switch (action.type) {
+		case 'INCREASE-QUANTITY':
+			return {
+				...state,
+				productQuantity: (state.productQuantity += 1),
+			}
+		case 'DECREASE-QUANTITY':
+			return {
+				...state,
+				productQuantity:
+					state.productQuantity === 1 ? 1 : (state.productQuantity -= 1),
+			}
+		case 'SHOW-MORE-DESC':
+			return {
+				...state,
+				moreDesc: !state.moreDesc,
+			}
+		case 'CREATE-PRODUCT-TAGS':
+			return {
+				...state,
+				tags: action.payload,
+			}
+		default:
+			return state
+	}
+}
+
 export const ProductDetailScreen = () => {
-	const navigation = useNavigation()
-	const [tags, setTags] = React.useState<string[]>([])
-	// const [moreDesc, setMoreDesc] = React.useState(false)
-	const [productQuantity, setProductQuantity] = React.useState(1)
+	const navigation = useNavigation<NavigationProps>()
+	const [{ productQuantity, moreDesc, tags }, dispatch] = React.useReducer(
+		productReducer,
+		initalState
+	)
 	const addToCart = useProductStore(state => state.addToCart)
+	const cart = useProductStore(state => state.cart)
 	const { favouriteItem, favourites, removeFavouriteItem } = useProductStore(
 		state => state
 	)
@@ -35,14 +73,7 @@ export const ProductDetailScreen = () => {
 		favourite => favourite.id === product.id
 	)
 
-	const onIncreaseProductQuantity = () =>
-		setProductQuantity(productQuantity + 1)
-	const onDecreaseProductQuantity = () => {
-		if (productQuantity === 1) return
-		setProductQuantity(productQuantity - 1)
-	}
-
-	React.useMemo(() => {
+	React.useEffect(() => {
 		// check the cateogry id in each product then compare them with the cateories id and get the name
 		const category = categories.map(category => {
 			if (product?.categories.includes(category.id)) {
@@ -50,7 +81,11 @@ export const ProductDetailScreen = () => {
 			}
 		})
 		const valuesThatAreNotUndefined = category.filter(Boolean) as string[]
-		setTags(valuesThatAreNotUndefined)
+		// setTags(valuesThatAreNotUndefined)
+		dispatch({
+			type: 'CREATE-PRODUCT-TAGS',
+			payload: valuesThatAreNotUndefined,
+		})
 	}, [])
 
 	return (
@@ -65,17 +100,27 @@ export const ProductDetailScreen = () => {
 						Details
 					</Text>
 
-					{isProductLiked ? (
-						<Pressable
-							className='p-2'
-							onPress={() => removeFavouriteItem(product?.id)}>
-							<Ionicons name='ios-heart' size={24} color='red' />
-						</Pressable>
-					) : (
-						<Pressable className='p-2' onPress={() => favouriteItem(product)}>
-							<Ionicons name='ios-heart-outline' size={24} color='#fafafa' />
-						</Pressable>
-					)}
+					<View className='flex flex-row items-center'>
+						{cart.length >= 1 ? (
+							<View className='flex flex-row items-center bg-gray-800 p-1 rounded ml-2'>
+								<ShoppingBag />
+								<Text className='text-gray-300 font-titilium-semibold ml-1'>
+									{cart.length}
+								</Text>
+							</View>
+						) : null}
+						{isProductLiked ? (
+							<Pressable
+								className='p-2'
+								onPress={() => removeFavouriteItem(product?.id)}>
+								<Ionicons name='ios-heart' size={24} color='red' />
+							</Pressable>
+						) : (
+							<Pressable className='p-2' onPress={() => favouriteItem(product)}>
+								<Ionicons name='ios-heart-outline' size={24} color='#fafafa' />
+							</Pressable>
+						)}
+					</View>
 				</View>
 
 				<View className='flex flex-col items-center justify-center bg-gray-500 py-2 px-4 rounded-xl mx-4 mt-2 shadow-2xl'>
@@ -123,23 +168,24 @@ export const ProductDetailScreen = () => {
 						<View>
 							<QuantityPicker
 								quantity={productQuantity}
-								onIncrease={onIncreaseProductQuantity}
-								onDecrease={onDecreaseProductQuantity}
+								onIncrease={() => dispatch({ type: 'INCREASE-QUANTITY' })}
+								onDecrease={() => dispatch({ type: 'DECREASE-QUANTITY' })}
 							/>
 						</View>
 					</View>
 
 					<Text className='text-base leading-7 font-titilium-regular pt-6 text-gray-400'>
-						{/* {moreDesc
+						{moreDesc
 							? product?.description
-							: `${product?.description.slice(0, 200)}....`} */}
-						{product?.description}
+							: `${product?.description.slice(0, 200)}....`}
+						{/* {product?.description} */}
+						{'   '}
+						<Pressable onPress={() => dispatch({ type: 'SHOW-MORE-DESC' })}>
+							<Text className='text-gray-300 font-titilium-bold'>
+								{moreDesc ? 'Less' : 'More'}
+							</Text>
+						</Pressable>
 					</Text>
-					{/* <Pressable onPress={() => setMoreDesc(!moreDesc)} className='pt-1'>
-						<Text className='text-gray-300 font-titilium-bold'>
-							{moreDesc ? 'Less' : 'More'}
-						</Text>
-					</Pressable> */}
 				</View>
 
 				{/* add to cart btn */}

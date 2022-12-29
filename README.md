@@ -4,6 +4,7 @@ FurniStore is an ecommerce store react native mobile application where you can b
 
 <br>
 
+<img src="./shots/Screenshot_1672317468.png" alt="furnistore homepage" style="width: 300px;margin-right: 10px;" />
 <img src="./shots/Screenshot_1670544411.png" alt="furnistore homepage" style="width: 300px;margin-right: 10px;" />
 <img src="./shots/Screenshot_1670578457.png" alt="furnistore cart page" style="width: 300px;margin-right: 10px;" />
 <img src="./shots/Screenshot_1670542828.png" alt="cart page with swipe to delte" style="width: 300px;" />
