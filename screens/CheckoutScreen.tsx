@@ -10,7 +10,6 @@ import { NavigationProps } from '../models/navigators'
 import { useProductStore } from '../store/productStore'
 
 export const CheckoutScreen = () => {
-	const [text, onChangeText] = React.useState('')
 	const [coupon, setCoupon] = React.useState('')
 	const navigation = useNavigation<NavigationProps>()
 	const products = useProductStore(state => state.cart)
@@ -97,9 +96,12 @@ export const CheckoutScreen = () => {
 
 					{/* saving alert */}
 					{/* <View className='flex flex-row items-center justify-between p-3 border-2 border-green-400 bg-green-200 rounded-lg my-3'>
-						<Text className='font-titilium-semibold text-sm text-green-800'>
-							Your total saving on this order is
-						</Text>
+						<View>
+							<Text className='font-titilium-semibold text-sm w-56 text-green-800'>
+								Your total saving on this order with coupon code:{' '}
+								<Text className='font-titilium-bold'>GHTYU</Text> is
+							</Text>
+						</View>
 						<Text className='font-titilium-bold text-base text-green-800'>
 							$200
 						</Text>
@@ -129,8 +131,8 @@ export const CheckoutScreen = () => {
 						Shipping Address
 					</Text>
 					<TextInput
-						onChangeText={onChangeText}
-						value={text}
+						// onChangeText={onChangeText}
+						// value={text}
 						placeholder='Where you want the goods delivered to'
 						className='text-base p-4 mt-2 font-titilium-regular text-black bg-neutral rounded-lg'
 						placeholderTextColor='rgb(107,114,128)'

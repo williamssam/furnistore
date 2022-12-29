@@ -8,13 +8,13 @@ type TabsProps = {
 	setSelectedIndex: React.Dispatch<React.SetStateAction<number>>
 }
 
-type renderItemsProps = {
+type RenderItemProps = {
 	item: CategoryType
 	index: number
 }
 
 export const Tabs = ({ selectedIndex, setSelectedIndex }: TabsProps) => {
-	const renderItem = ({ item, index }: renderItemsProps) => (
+	const renderItem = ({ item, index }: RenderItemProps) => (
 		<Pressable
 			onPress={() => setSelectedIndex(item.id)}
 			className={`px-5 py-3 rounded-xl mr-4 flex flex-row items-center ${

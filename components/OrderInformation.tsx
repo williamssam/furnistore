@@ -69,7 +69,7 @@ export const OrderInformation = ({
 
 			{/* checkout button */}
 			<Pressable
-				onPress={() => navigation.navigate('Checkout')}
+				onPress={() => navigation.navigate('Success')}
 				className='mt-7 mb-16 px-8 py-4 bg-neutral rounded-xl flex flex-row justify-between items-center'>
 				<Text className='text-secondary font-titilium-bold text-lg'>
 					Procced to checkout

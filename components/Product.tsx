@@ -45,7 +45,7 @@ export const Product = ({ categoryProducts }: ProductProps) => {
 
 						<View className='self-start flex items-center justify-between flex-row w-full pt-1'>
 							<View>
-								<Text className='text-2xl text-neutral font-titilium-bold'>
+								<Text className='text-2xl w-56 text-neutral font-titilium-bold'>
 									{product?.name}
 								</Text>
 								<NumericFormat

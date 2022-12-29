@@ -2,11 +2,6 @@
 
 FurniStore is an ecommerce store react native mobile application where you can buy modern furnitures.
 
-<!-- This repo contains two branch: -->
-<!--
-- main branch: this contains the code that uses prisma to access the db. NB: not currently implemented
-- without-db: this contains the products and categories locally stored. NB: this is the current main -->
-
 <br>
 
 <img src="./shots/Screenshot_1670544411.png" alt="furnistore homepage" style="width: 300px;margin-right: 10px;" />
@@ -28,7 +23,6 @@ The app uses different libaries, languages, and tools to work properly. Main tec
 
 - React Native
 - Zustand
-- Jotai
 - TypeScript
 - Expo
 - Tailwind CSS (Nativewind)

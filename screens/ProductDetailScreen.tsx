@@ -42,15 +42,15 @@ export const ProductDetailScreen = () => {
 		setProductQuantity(productQuantity - 1)
 	}
 
-	React.useEffect(() => {
+	React.useMemo(() => {
 		// check the cateogry id in each product then compare them with the cateories id and get the name
 		const category = categories.map(category => {
 			if (product?.categories.includes(category.id)) {
 				return category?.name
 			}
 		})
-		const getValuesThatAreNotUndefined = category.filter(Boolean) as string[]
-		setTags(getValuesThatAreNotUndefined)
+		const valuesThatAreNotUndefined = category.filter(Boolean) as string[]
+		setTags(valuesThatAreNotUndefined)
 	}, [])
 
 	return (
@@ -86,7 +86,7 @@ export const ProductDetailScreen = () => {
 					<View>
 						{tags ? (
 							<Text className='text-sm font-titilium-semibold text-gray-400 leading-5'>
-								{/* get tag, replace any space between tag with dash and join all tags together with space */}
+								{/* get tag, replace any space between tag name with dash and join all tags together with two spaces */}
 								{tags.map(tag => `#${tag!.replace(/\s+/g, '-')}`).join('  ')}
 							</Text>
 						) : null}
