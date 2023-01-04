@@ -1,31 +1,40 @@
 {
-	"expo": {
-		"name": "furnistore",
-		"slug": "furnistore",
-		"version": "1.0.0",
-		"orientation": "portrait",
-		"icon": "./assets/icon.png",
-		"userInterfaceStyle": "light",
-		"splash": {
-			"image": "./assets/splash.png",
-			"resizeMode": "cover",
-			"backgroundColor": "#000000"
-		},
-		"updates": {
-			"fallbackToCacheTimeout": 0
-		},
-		"assetBundlePatterns": ["**/*"],
-		"ios": {
-			"supportsTablet": true
-		},
-		"android": {
-			"adaptiveIcon": {
-				"foregroundImage": "./assets/icon.png",
-				"backgroundColor": "#312F2F"
-			}
-		},
-		"web": {
-			"favicon": "./assets/icon.png"
-		}
-	}
+  "expo": {
+    "name": "furnistore",
+    "slug": "furnistore",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#000000"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/icon.png",
+        "backgroundColor": "#312F2F"
+      },
+      "package": "com.williamscodes.furnistore"
+    },
+    "web": {
+      "favicon": "./assets/icon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "9cc65fe4-5887-4efb-9de7-2568e2e27057"
+      }
+    },
+    "owner": "williamscodes"
+  }
 }
